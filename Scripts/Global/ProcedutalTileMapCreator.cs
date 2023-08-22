@@ -23,6 +23,7 @@ public static partial class ProceduralTileMapCreator
     packedScene.Pack(tileMap);
 
     ResourceSaver.Save(packedScene, path);
+    Logger.LogInfo("Generated TileMap: " + path);
   }
 
   private static TileMap CreateTileMap(TileSet tileSet)

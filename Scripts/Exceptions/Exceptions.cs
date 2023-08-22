@@ -30,6 +30,16 @@ public static partial class Exceptions
     }
   }
 
+  public static void ThrowIfEqualOrGreaterThan<T>(T value, T maxValue)
+        where T : IComparable<T>
+  {
+    if (value.CompareTo(maxValue) >= 0)
+    {
+      throw new WrongValueException(
+          $"Value '{value}' is greater than '{maxValue}'.");
+    }
+  }
+
   public static void ThrowIfLessThan<T>(T value, T minValue)
       where T : IComparable<T>
   {
@@ -37,6 +47,36 @@ public static partial class Exceptions
     {
       throw new WrongValueException(
           $"Value '{value}' is less than '{minValue}'.");
+    }
+  }
+
+  public static void ThrowIfEqualOrLessThan<T>(T value, T minValue)
+      where T : IComparable<T>
+  {
+    if (value.CompareTo(minValue) <= 0)
+    {
+      throw new WrongValueException(
+          $"Value '{value}' is less than '{minValue}'.");
+    }
+  }
+
+  public static void ThrowIfInRange<T>(T value, T minValue, T maxValue)
+      where T : IComparable<T>
+  {
+    if (value.CompareTo(minValue) >= 0 && value.CompareTo(maxValue) <= 0)
+    {
+      throw new WrongValueException(
+          $"Value '{value}' is in range: '{minValue}' - '{maxValue}'.");
+    }
+  }
+
+  public static void ThrowIfNotInRange<T>(T value, T minValue, T maxValue)
+      where T : IComparable<T>
+  {
+    if (value.CompareTo(minValue) < 0 || value.CompareTo(maxValue) > 0)
+    {
+      throw new WrongValueException(
+          $"Value '{value}' is not in range: '{minValue}' - '{maxValue}'.");
     }
   }
 }

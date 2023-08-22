@@ -10,6 +10,7 @@ public partial class Tile
     this.TileID = TileID;
     this.Layer = Layer;
   }
+
   public override string ToString()
   {
     return JsonSerializer.Serialize(this);

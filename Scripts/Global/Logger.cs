@@ -10,12 +10,12 @@ public static partial class Logger
   public static bool supressError = false;
   public static bool supressWarning = false;
 
-  public static void Log(params String[] msgs)
+  public static void Log(params object[] msgs)
   {
     LogToConsole("", msgs);
   }
 
-  public static void LogError(params String[] msgs)
+  public static void LogError(params object[] msgs)
   {
     LogToConsole(ERROR_MARKER, msgs);
     if (!supressError)
@@ -24,12 +24,12 @@ public static partial class Logger
     }
   }
 
-  public static void LogInfo(params String[] msgs)
+  public static void LogInfo(params object[] msgs)
   {
     LogToConsole(INFO_MARKER, msgs);
   }
 
-  public static void LogWarning(params String[] msgs)
+  public static void LogWarning(params object[] msgs)
   {
     LogToConsole(WARNING_MARKER, msgs);
     if (!supressWarning)
@@ -38,11 +38,11 @@ public static partial class Logger
     }
   }
 
-  private static void LogToConsole(String marker, params String[] msgs)
+  private static void LogToConsole(String marker, params object[] msgs)
   {
-    foreach (String msg in msgs)
+    foreach (object msg in msgs)
     {
-      marker += msg;
+      marker += msg.ToString();
     }
 
     GD.Print(marker);
