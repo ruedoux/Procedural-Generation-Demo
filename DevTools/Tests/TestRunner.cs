@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using Godot;
 
@@ -7,21 +8,17 @@ public partial class TestRunner : Control
 {
   public override void _Ready()
   {
-
-    try
-    {
-      Exceptions.ThrowIfEqual(1, 1);
-    }
-    catch (Exception ex)
-    {
-      Logger.Log(ex.Message);
-    }
-
     RunAllTests();
   }
 
   private void RunAllTests()
   {
-    new SomeTest();
+    var types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsDefined(typeof(ITClass)));
+
+    foreach (var type in types)
+    {
+      var instance = Activator.CreateInstance(type);
+      ITRunner.RunTests(instance);
+    }
   }
 }
