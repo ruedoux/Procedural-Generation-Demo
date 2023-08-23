@@ -8,6 +8,7 @@ public partial class test : Node2D
 {
   public override void _Ready()
   {
-    Logger.LogInfo(1, 2, 3, 3.0, new Tile());
+    Tile tile = new();
+    Logger.Log(tile);
   }
 }

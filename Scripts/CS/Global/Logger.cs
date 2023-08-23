@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public static partial class Logger
+public partial class Logger
 {
   private const String ERROR_MARKER = "[ERROR] ";
   private const String WARNING_MARKER = "[WARN] ";
