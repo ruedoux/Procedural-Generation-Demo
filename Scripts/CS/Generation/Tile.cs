@@ -1,20 +1,17 @@
-using System.Text.Json;
 using Godot;
+using Newtonsoft.Json;
 
-
-public partial class Tile
+public partial class Tile : JsonSerializable
 {
-  public int TileID { get; private set; }
-  public int Layer { get; private set; }
 
-  public Tile(int TileID = -1, int Layer = -1)
+  [JsonProperty] public int TileId;
+  [JsonProperty] public int Layer;
+
+  public Tile(int TileId = default, int Layer = default)
   {
-    this.TileID = TileID;
+    this.TileId = TileId;
     this.Layer = Layer;
   }
 
-  public override string ToString()
-  {
-    return JsonSerializer.Serialize(this);
-  }
+  public Tile() { }
 }
