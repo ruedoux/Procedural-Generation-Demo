@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 
-public partial class TileMappedRange : RefCounted
+public partial class TileMappedRange
 {
   private readonly Array<Tile> range = new();
 

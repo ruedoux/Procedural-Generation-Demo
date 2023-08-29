@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class TileRange : RefCounted
+public partial class TileRange
 {
   private const float MIN_NOISE_RANGE = -1;
   private const float MAX_NOISE_RANGE = 1;
