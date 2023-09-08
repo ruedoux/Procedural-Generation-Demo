@@ -23,7 +23,7 @@ public static partial class Exceptions
   public static void ThrowIfGreaterThan<T>(T value, T maxValue)
         where T : IComparable<T>
   {
-    if (value.CompareTo(maxValue) > 0)
+    if (value.CompareTo(maxValue) < 0)
     {
       throw new WrongValueException(
           $"Value '{value}' is greater than '{maxValue}'.");
@@ -33,7 +33,7 @@ public static partial class Exceptions
   public static void ThrowIfEqualOrGreaterThan<T>(T value, T maxValue)
         where T : IComparable<T>
   {
-    if (value.CompareTo(maxValue) >= 0)
+    if (value.CompareTo(maxValue) <= 0)
     {
       throw new WrongValueException(
           $"Value '{value}' is greater than '{maxValue}'.");

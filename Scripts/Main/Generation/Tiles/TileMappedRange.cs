@@ -1,15 +1,15 @@
-using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
 
 public partial class TileMappedRange
 {
-  private readonly Array<Tile> range = new();
+  private readonly Tile[] range;
 
-  public TileMappedRange(Array<TileRange> tileRanges, Tile defaultTile, int rangeSize)
+  public TileMappedRange(List<TileRange> tileRanges, Tile defaultTile, int rangeSize)
   {
+    range = new Tile[rangeSize];
     for (int i = 0; i < rangeSize; i++)
     {
-      range.Add(defaultTile);
+      range[i] = defaultTile;
     }
 
     foreach (TileRange tileRange in tileRanges)
@@ -21,7 +21,7 @@ public partial class TileMappedRange
     }
   }
 
-  public Array<Tile> GetRange()
+  public Tile[] GetRange()
   {
     return range;
   }
@@ -29,6 +29,6 @@ public partial class TileMappedRange
   public int NoiseToIndex(float noise)
   {
     int convertedNoise = (int)(noise * 100) + 100; // 0, ..., 200
-    return (int)(convertedNoise / (((float)convertedNoise) / range.Count));
+    return (int)(convertedNoise / (((float)convertedNoise) / range.Length));
   }
 }
