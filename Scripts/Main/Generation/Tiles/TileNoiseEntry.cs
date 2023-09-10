@@ -1,6 +1,5 @@
-using Godot;
 
-public partial class TileRange
+public partial class TileNoiseEntry
 {
   private const float MIN_NOISE_RANGE = -1;
   private const float MAX_NOISE_RANGE = 1;
@@ -9,7 +8,7 @@ public partial class TileRange
   public float noiseTo;
   public Tile tile;
 
-  public TileRange(float noiseFrom, float noiseTo, Tile tile)
+  public TileNoiseEntry(float noiseFrom, float noiseTo, Tile tile)
   {
     Exceptions.ThrowIfLessThan(noiseFrom, MIN_NOISE_RANGE);
     Exceptions.ThrowIfGreaterThan(noiseTo, MAX_NOISE_RANGE);

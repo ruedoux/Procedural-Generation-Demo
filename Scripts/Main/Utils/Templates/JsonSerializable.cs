@@ -1,17 +1,21 @@
-using Godot;
 using Newtonsoft.Json;
 
 [JsonObject(MemberSerialization.OptIn)]
-public partial class JsonSerializable : RefCounted
+public partial class JsonSerializable
 {
-  public JsonSerializable FromJsonString(string jsonString)
+  public T FromJsonString<T>(string jsonString)
+    where T : JsonSerializable
   {
     JsonConvert.PopulateObject(jsonString, this);
-    return this;
+    return this as T;
   }
-
   public override string ToString()
   {
     return JsonConvert.SerializeObject(this);
+  }
+
+  public string ToJsonString()
+  {
+    return ToString();
   }
 }

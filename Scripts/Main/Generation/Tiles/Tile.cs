@@ -1,15 +1,14 @@
-using Godot;
 using Newtonsoft.Json;
 
 public partial class Tile : JsonSerializable
 {
 
-  [JsonProperty] public int tileId;
+  [JsonProperty] public int id;
   [JsonProperty] public int layer;
 
-  public Tile(int tileId = default, int layer = default)
+  public Tile(int id = default, int layer = default)
   {
-    this.tileId = tileId;
+    this.id = id;
     this.layer = layer;
   }
 

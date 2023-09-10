@@ -4,7 +4,8 @@ public partial class TileMappedRange
 {
   private readonly Tile[] range;
 
-  public TileMappedRange(List<TileRange> tileRanges, Tile defaultTile, int rangeSize)
+  public TileMappedRange(
+    List<TileNoiseEntry> tileRanges, Tile defaultTile, int rangeSize)
   {
     range = new Tile[rangeSize];
     for (int i = 0; i < rangeSize; i++)
@@ -12,7 +13,7 @@ public partial class TileMappedRange
       range[i] = defaultTile;
     }
 
-    foreach (TileRange tileRange in tileRanges)
+    foreach (TileNoiseEntry tileRange in tileRanges)
     {
       for (int i = NoiseToIndex(tileRange.noiseFrom); i < NoiseToIndex(tileRange.noiseTo); i++)
       {

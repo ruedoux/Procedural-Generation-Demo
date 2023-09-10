@@ -68,4 +68,44 @@ public class ExceptionsTest : SimpleTestClass
     Assertions.AssertThrows<WrongValueException>(() =>
           Exceptions.ThrowIfEqualOrGreaterThan(value, value));
   }
+
+  [SimpleTestMethod]
+  public void ThrowIfInRange_shouldThrowException_whenInRange()
+  {
+    // Given
+    int minimum = 0;
+    int maximum = 2;
+
+    // When
+    Exceptions.ThrowIfInRange(-1, minimum, maximum);
+    Exceptions.ThrowIfInRange(3, minimum, maximum);
+
+    // Then
+    Assertions.AssertThrows<WrongValueException>(() =>
+      Exceptions.ThrowIfInRange(0, minimum, maximum));
+    Assertions.AssertThrows<WrongValueException>(() =>
+      Exceptions.ThrowIfInRange(1, minimum, maximum));
+    Assertions.AssertThrows<WrongValueException>(() =>
+      Exceptions.ThrowIfInRange(2, minimum, maximum));
+  }
+
+
+  [SimpleTestMethod]
+  public void ThrowIfNotInRange_shouldThrowException_whenNotInRange()
+  {
+    // Given
+    int minimum = 0;
+    int maximum = 2;
+
+    // When
+    Exceptions.ThrowIfNotInRange(0, minimum, maximum);
+    Exceptions.ThrowIfNotInRange(1, minimum, maximum);
+    Exceptions.ThrowIfNotInRange(2, minimum, maximum);
+
+    // Then
+    Assertions.AssertThrows<WrongValueException>(() =>
+      Exceptions.ThrowIfNotInRange(3, minimum, maximum));
+    Assertions.AssertThrows<WrongValueException>(() =>
+      Exceptions.ThrowIfNotInRange(-1, minimum, maximum));
+  }
 }
