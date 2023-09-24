@@ -18,10 +18,6 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Testing"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/SGT/plugin.cfg")
-
 [filesystem]
 
 import/blender/enabled=false

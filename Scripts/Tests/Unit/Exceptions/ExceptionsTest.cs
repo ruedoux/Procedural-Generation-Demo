@@ -1,4 +1,4 @@
-namespace IntegrationTests;
+namespace UnitTests;
 using SGT;
 
 public class ExceptionsTest : SimpleTestClass
@@ -42,13 +42,12 @@ public class ExceptionsTest : SimpleTestClass
     int greater = 2;
 
     // When
-    Exceptions.ThrowIfGreaterThan(value, less);
+    Exceptions.ThrowIfGreaterThan(value, greater);
     Exceptions.ThrowIfGreaterThan(value, value);
 
     // Then
     Assertions.AssertThrows<WrongValueException>(() =>
-      Exceptions.ThrowIfGreaterThan(value, greater));
-
+      Exceptions.ThrowIfGreaterThan(value, less));
   }
 
   [SimpleTestMethod]
