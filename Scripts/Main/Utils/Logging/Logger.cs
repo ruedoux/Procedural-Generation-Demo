@@ -1,92 +1,46 @@
-using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+
+using Godot;
 
 public static class Logger
 {
-  private const String ERROR_MARKER = "[ERROR] ";
-  private const String WARNING_MARKER = "[WARNING] ";
-  private const String INFO_MARKER = "[INFO] ";
-
-  public static ObserverManager<string> normalObservers = new();
   public static ObserverManager<string> warningObservers = new();
-  public static ObserverManager<string> errorObservers = new();
-  public static ObserverManager<string> allObservers = new();
-  public static ObserverManager<Message> messageObservers = new();
+  public static ObserverManager<string> errorObservers = new(GD.PushError);
+  public static ObserverManager<string> allObservers = new(GD.PrintRich);
 
   public static bool supressError = false;
   public static bool supressWarning = false;
-  public static uint indentationTabs = 0;
-
+  public static bool logThread = false;
 
   public static void Log(params object[] msgs)
-  {
-    LogMessage(Message.GetNormal("", msgs));
-  }
+    => ForwardMessage(Message.GetInfo(GetSourceClassName(), msgs));
 
   public static void LogError(params object[] msgs)
-  {
-    LogMessage(Message.GetError(ERROR_MARKER, msgs));
-  }
-
-  public static void LogInfo(params object[] msgs)
-  {
-    LogMessage(Message.GetInfo(INFO_MARKER, msgs));
-  }
+    => ForwardMessage(Message.GetError(GetSourceClassName(), msgs));
 
   public static void LogWarning(params object[] msgs)
-  {
-    LogMessage(Message.GetWarning(WARNING_MARKER, msgs));
-  }
-
-  public static void LogMessage(Message message)
-  {
-    message.SetIndentation(indentationTabs);
-
-    allObservers.NotifyObservers(message.GetWhole());
-    messageObservers.NotifyObservers(message);
-
-    if (message.GetMessageType() == Message.TYPE.NORMAL)
-    {
-      normalObservers.NotifyObservers(message.GetWhole());
-    }
-    else if ((message.GetMessageType() == Message.TYPE.WARNING) && !supressWarning)
-    {
-      warningObservers.NotifyObservers(message.GetWhole());
-    }
-    else if ((message.GetMessageType() == Message.TYPE.ERROR) && !supressError)
-    {
-      errorObservers.NotifyObservers(message.GetWhole());
-    }
-  }
+    => ForwardMessage(Message.GetWarning(GetSourceClassName(), msgs));
 
   public static void LogException(Exception ex)
   {
-    List<string> parsedExceptions = new()
-    {
-      ex.InnerException.Message
-    };
-
+    List<string> parsedExceptions = new() { ex.InnerException.Message };
     string[] lines = ex.InnerException.ToString()
       .Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-
-    foreach (string line in lines)
-    {
-      parsedExceptions.Add(line);
-    }
-
-    Log(Message.GetError("", string.Join('\n', parsedExceptions.ToArray())));
+    foreach (string line in lines) parsedExceptions.Add(line);
+    LogError(string.Join('\n', parsedExceptions.ToArray()));
   }
 
-  public static void StartBlock(Message message)
+  private static void ForwardMessage(Message message)
   {
-    LogMessage(message);
-    indentationTabs += 1;
+    allObservers.NotifyObservers(message.GetAsString(logThread, true));
+    if (!supressWarning && message.type == Message.TYPE.WARN)
+      warningObservers.NotifyObservers(message.GetText());
+    if (!supressError && message.type == Message.TYPE.ERROR)
+      errorObservers.NotifyObservers(message.GetText());
   }
 
-  public static void EndBlock(Message message)
-  {
-    indentationTabs -= 1;
-    LogMessage(message);
-  }
+  private static string GetSourceClassName()
+    => new StackTrace().GetFrame(2).GetMethod().DeclaringType.Name;
 }

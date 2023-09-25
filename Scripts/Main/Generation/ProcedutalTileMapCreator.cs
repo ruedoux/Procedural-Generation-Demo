@@ -4,16 +4,15 @@ using Godot;
 
 public static partial class ProceduralTileMapCreator
 {
-  public static void GenerateTileMap(String path, Vector2I tileSize, Color[] colors)
+  public static void GenerateTileMap(string path, Vector2I tileSize, Color[] colors)
   {
     Exceptions.ThrowIfEqual(colors.Length, 0);
     Exceptions.ThrowIfNotEqual(tileSize.X, tileSize.Y);
 
     List<Image> tiles = new();
     foreach (Color color in colors)
-    {
       tiles.Add(CreateTileImage(tileSize, color));
-    }
+
 
     var source = CreateTileSourceFromTiles(tiles.ToArray());
     var tileSet = CreateTileSet(new List<TileSetAtlasSource> { source }.ToArray(), tileSize);
@@ -23,7 +22,7 @@ public static partial class ProceduralTileMapCreator
     packedScene.Pack(tileMap);
 
     ResourceSaver.Save(packedScene, path);
-    Logger.LogInfo("Generated TileMap: " + path);
+    Logger.Log("Generated TileMap: " + path);
   }
 
   private static TileMap CreateTileMap(TileSet tileSet)
@@ -49,15 +48,9 @@ public static partial class ProceduralTileMapCreator
   {
     Exceptions.ThrowIfEqual(sources.Length, 0);
 
-    TileSet tileSet = new()
-    {
-      TileSize = tileSize
-    };
-
+    TileSet tileSet = new() { TileSize = tileSize };
     foreach (TileSetAtlasSource source in sources)
-    {
       tileSet.AddSource(source);
-    }
 
     return tileSet;
   }
@@ -76,9 +69,8 @@ public static partial class ProceduralTileMapCreator
     };
 
     for (int i = 0; i < tiles.Length; i++)
-    {
       tileSetAtlasSource.CreateTile(new Vector2I(i, 0), GetTileDimensions(tileSize));
-    }
+
 
     return tileSetAtlasSource;
   }
@@ -96,9 +88,8 @@ public static partial class ProceduralTileMapCreator
 
     Vector2I tileSize = tiles[0].GetSize();
     foreach (Image tile in tiles)
-    {
       Exceptions.ThrowIfNotEqual(tileSize, tile.GetSize());
-    }
+
 
     Image image = Image.Create(
       tileSize.X * tiles.Length, tileSize.Y, true, Image.Format.Rgba8);
@@ -119,9 +110,7 @@ public static partial class ProceduralTileMapCreator
   {
     int smallerDimension = tileSize.X;
     if (smallerDimension > tileSize.Y)
-    {
       smallerDimension = tileSize.Y;
-    }
 
     return tileSize / smallerDimension;
   }
