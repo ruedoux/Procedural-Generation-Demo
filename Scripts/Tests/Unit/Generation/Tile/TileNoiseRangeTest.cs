@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Godot;
 using SGT;
 
 namespace UnitTests;
@@ -24,21 +23,12 @@ public class TileNoiseRangeTest : SimpleTestClass
 
     // Then
     for (uint i = 0; i < 50; i++)
-    {
-      Assertions.AssertEqual(
-        firstHalfTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
-    }
+      Assertions.AssertEqual(firstHalfTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
 
     for (uint i = 50; i < 75; i++)
-    {
-      Assertions.AssertEqual(
-        secondQuarterTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
-    }
+      Assertions.AssertEqual(secondQuarterTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
 
     for (uint i = 75; i < 100; i++)
-    {
-      Assertions.AssertEqual(
-        defaultTile, tileNoiseRange.range[i], $"For index: {i}");
-    }
+      Assertions.AssertEqual(defaultTile, tileNoiseRange.range[i], $"For index: {i}");
   }
 }

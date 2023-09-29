@@ -4,7 +4,7 @@ using Godot;
 
 public static partial class ProceduralTileMapCreator
 {
-  public static void GenerateTileMap(string path, Vector2I tileSize, Color[] colors)
+  public static TileMap GenerateTileMap(Vector2I tileSize, Color[] colors)
   {
     Exceptions.ThrowIfEqual(colors.Length, 0);
     Exceptions.ThrowIfNotEqual(tileSize.X, tileSize.Y);
@@ -18,11 +18,7 @@ public static partial class ProceduralTileMapCreator
     var tileSet = CreateTileSet(new List<TileSetAtlasSource> { source }.ToArray(), tileSize);
     var tileMap = CreateTileMap(tileSet);
 
-    PackedScene packedScene = new();
-    packedScene.Pack(tileMap);
-
-    ResourceSaver.Save(packedScene, path);
-    Logger.Log("Generated TileMap: " + path);
+    return tileMap;
   }
 
   private static TileMap CreateTileMap(TileSet tileSet)

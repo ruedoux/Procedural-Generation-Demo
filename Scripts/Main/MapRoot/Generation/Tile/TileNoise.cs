@@ -1,6 +1,4 @@
 
-using Godot;
-
 public partial class TileNoise
 {
   private const float MIN_NOISE_RANGE = -1.0f;

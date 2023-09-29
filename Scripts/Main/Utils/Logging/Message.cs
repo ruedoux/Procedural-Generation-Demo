@@ -5,7 +5,7 @@ using System.Threading;
 public class Message
 {
   public enum TYPE { INFO, WARN, ERROR }
-  private readonly Dictionary<TYPE, string> TypeColorDict = new()
+  private static readonly Dictionary<TYPE, string> TypeColorDict = new()
   { {TYPE.INFO, "Deepskyblue"}, {TYPE.WARN, "Orange"}, {TYPE.ERROR, "Red"}};
 
   public readonly TYPE type;
@@ -18,7 +18,7 @@ public class Message
 
   private Message() { }
 
-  public Message(
+  private Message(
     TYPE type, string className, params object[] msgs)
   {
     time = DateTime.Now.ToString("HH:mm:ss.fff");
