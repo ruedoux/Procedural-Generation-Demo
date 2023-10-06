@@ -1,4 +1,5 @@
-public class InMemoryEntity<K>
+
+public class InMemoryEntity<K> : JsonSerializable
 {
   public K key;
 }

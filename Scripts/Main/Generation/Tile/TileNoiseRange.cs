@@ -6,8 +6,7 @@ public partial class TileNoiseRange
   private const uint RANGE_SIZE = 100;
   public readonly Tile[] range;
 
-  public TileNoiseRange(
-    List<TileNoise> tileRanges, Tile defaultTile)
+  public TileNoiseRange(TileNoise[] tileRanges, Tile defaultTile = null)
   {
     range = new Tile[RANGE_SIZE];
     for (uint i = 0; i < range.Length; i++)

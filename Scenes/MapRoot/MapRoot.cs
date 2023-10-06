@@ -3,10 +3,15 @@ using Godot;
 
 public partial class MapRoot : Node2D
 {
+  private readonly TileDatabase tileDatabase = new();
+
   public override void _Ready()
   {
-    //var tileMap = ProceduralTileMapCreator.GenerateTileMap(
-    //  new Vector2I(4, 4), GlobalData.DefaultTileColors.Values.ToArray());
-    //AddChild(tileMap);
+    Color[] colors = tileDatabase.entries
+      .OrderBy(keyPair => (int)keyPair.Key)
+      .Select(keyPair => keyPair.Value.color).ToArray();
+
+    var tileMap = ProceduralTileMapCreator.GenerateTileMap(new Vector2I(4, 4), colors);
+    AddChild(tileMap);
   }
 }

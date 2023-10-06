@@ -14,7 +14,7 @@ public class TileTest : SimpleTestClass
     int layer = random.Next();
 
     // When
-    Tile tile = new(tileId, layer);
+    Tile tile = new(tileId);
     string jsonString = tile.ToJsonString();
     Tile tileFromJson = new Tile().FromJsonString<Tile>(jsonString);
 
@@ -26,9 +26,9 @@ public class TileTest : SimpleTestClass
   public void EqualAndHashCode_shouldCompare_whenCalled()
   {
     // Given
-    Tile tileEqual1 = new(1, 2);
-    Tile tileEqual2 = new(1, 2);
-    Tile tileNotEqual = new(2, 1);
+    Tile tileEqual1 = new(1);
+    Tile tileEqual2 = new(1);
+    Tile tileNotEqual = new(2);
 
     // When
     // Then

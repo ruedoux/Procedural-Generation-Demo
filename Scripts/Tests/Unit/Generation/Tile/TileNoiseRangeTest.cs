@@ -13,10 +13,7 @@ public class TileNoiseRangeTest : SimpleTestClass
     Tile defaultTile = new();
     TileNoise firstHalfTileNoise = new(-1, 0, new Tile(1));
     TileNoise secondQuarterTileNoise = new(0, 0.5f, new Tile(2));
-    List<TileNoise> tileNoises = new()
-    {
-      firstHalfTileNoise, secondQuarterTileNoise
-    };
+    TileNoise[] tileNoises = new TileNoise[] { firstHalfTileNoise, secondQuarterTileNoise };
 
     // When
     TileNoiseRange tileNoiseRange = new(tileNoises, defaultTile);

@@ -1,40 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-public class InMemoryDatabase<K, V> where V : InMemoryEntity<K>
+public class InMemoryDatabase<V> where V : class
 {
-  private readonly Dictionary<K, V> entries = new();
+  public readonly Dictionary<object, V> entries = new();
   private readonly object lockObject = new();
 
-  public V[] GetAll() => entries.Values.ToArray();
-  public V GetEntry(K key) => entries.TryGetValue(key, out V value) ? value : null;
+  public V GetEntry(object key) => entries.TryGetValue(key, out V value) ? value : null;
 
-  public V AddEntry(K key, V entry)
+  public V AddEntry(object key, V entry)
   {
     lock (lockObject)
-    {
       entries.Add(key, entry);
-      entry.key = key;
-    }
+
     return entry;
   }
 
-  public bool RemoveEntry(K key)
+  public bool RemoveEntry(object key)
   {
     bool isSuccess;
     lock (lockObject)
-    {
       isSuccess = entries.Remove(key);
-    }
 
     return isSuccess;
   }
 
-  public V[] Filter(Func<V, bool> predicate)
+  public V[] FilterBy(Func<V, bool> predicate)
   {
     List<V> filteredList = new();
-    foreach (var item in GetAll())
+    foreach (var item in entries.Values)
       if (predicate(item))
         filteredList.Add(item);
 

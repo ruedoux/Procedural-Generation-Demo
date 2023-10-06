@@ -1,15 +1,15 @@
+using Godot;
 using Newtonsoft.Json;
 
 public class Tile : JsonSerializable
 {
+  [JsonProperty] public int tileId;
+  [JsonProperty] public Color color;
 
-  [JsonProperty] public int id;
-  [JsonProperty] public int layer;
-
-  public Tile(int id = default, int layer = default)
+  public Tile(int tileId = default, Color color = default)
   {
-    this.id = id;
-    this.layer = layer;
+    this.tileId = tileId;
+    this.color = color;
   }
 
   public Tile() { }
@@ -21,11 +21,10 @@ public class Tile : JsonSerializable
 
     Tile other = obj as Tile;
 
-    return (id == other.id) && (layer == other.layer);
+    return (tileId == other.tileId) && (color == other.color);
   }
 
   public override int GetHashCode()
-  {
-    return System.HashCode.Combine(id, layer);
-  }
+    => System.HashCode.Combine(tileId, color);
+
 }

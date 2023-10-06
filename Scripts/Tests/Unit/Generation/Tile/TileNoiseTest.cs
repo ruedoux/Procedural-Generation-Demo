@@ -9,7 +9,7 @@ public class TileNoiseTest : SimpleTestClass
   public void Constructor_shouldCreateValidObject_whenValuesValid()
   {
     // Given
-    Tile tile = new(1, 2);
+    Tile tile = new(1);
     float noiseFrom = -1;
     float noiseTo = 1;
 
@@ -26,7 +26,7 @@ public class TileNoiseTest : SimpleTestClass
   public void Constructor_shouldThrowException_whenValuesInvalid()
   {
     // Given
-    Tile tile = new(1, 2);
+    Tile tile = new(1);
 
     // When
     // Then
