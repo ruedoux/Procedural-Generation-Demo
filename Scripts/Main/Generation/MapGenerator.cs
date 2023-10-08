@@ -5,7 +5,7 @@ public partial class MapGenerator
   private readonly FastNoiseLite fastNoiseLite;
   private readonly TileNoiseRange tileNoiseRange;
 
-  protected MapGenerator(
+  public MapGenerator(
     FastNoiseLite fastNoiseLite,
     TileNoiseRange tileNoiseRange)
   {
