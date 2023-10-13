@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class TileNoiseRange
 {
   private const uint RANGE_SIZE = 100;
-  public readonly Tile[] range;
+  public readonly Tile[] range = new Tile[RANGE_SIZE];
 
   public TileNoiseRange(TileNoise[] tileRanges, Tile defaultTile = null)
   {
-    range = new Tile[RANGE_SIZE];
-    for (uint i = 0; i < range.Length; i++)
-      range[i] = defaultTile;
+    List<TileNoise> orderedRanges = tileRanges.OrderBy(o => o.noiseMarker).ToList();
+    orderedRanges.Add(new(1.0f, defaultTile));
 
-    foreach (TileNoise tileRange in tileRanges)
-      for (uint i = NoiseToIndex(tileRange.noiseFrom); i < NoiseToIndex(tileRange.noiseTo); i++)
-        range[i] = tileRange.tile;
+    uint index = 0;
+    foreach (TileNoise tileNoise in orderedRanges)
+      for (; index < NoiseToIndex(tileNoise.noiseMarker); index++)
+        range[index] = tileNoise.tile;
   }
 
   public Tile GetTileByNoise(float noise)

@@ -10,15 +10,14 @@ public class TileNoiseTest : SimpleTestClass
   {
     // Given
     Tile tile = new(1);
-    float noiseFrom = -1;
-    float noiseTo = 1;
+    float noiseMarker = -1;
+
 
     // When
-    TileNoise tileNoise = new(noiseFrom, noiseTo, tile);
+    TileNoise tileNoise = new(noiseMarker, tile);
 
     // Then
-    Assertions.AssertEqual(tileNoise.noiseFrom, noiseFrom);
-    Assertions.AssertEqual(tileNoise.noiseTo, noiseTo);
+    Assertions.AssertEqual(tileNoise.noiseMarker, noiseMarker);
     Assertions.AssertEqual(tileNoise.tile, tile);
   }
 
@@ -31,10 +30,8 @@ public class TileNoiseTest : SimpleTestClass
     // When
     // Then
     Assertions.AssertThrows<WrongValueException>(() =>
-      new TileNoise(-1.1f, 1f, tile));
+      new TileNoise(-1.1f, tile));
     Assertions.AssertThrows<WrongValueException>(() =>
-      new TileNoise(-1f, 1.1f, tile));
-    Assertions.AssertThrows<WrongValueException>(() =>
-      new TileNoise(0f, -1f, tile));
+      new TileNoise(1.1f, tile));
   }
 }

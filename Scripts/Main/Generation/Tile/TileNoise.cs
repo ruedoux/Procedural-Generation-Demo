@@ -4,18 +4,15 @@ public partial class TileNoise
   private const float MIN_NOISE_RANGE = -1.0f;
   private const float MAX_NOISE_RANGE = 1.0f;
 
-  public float noiseFrom;
-  public float noiseTo;
+  public float noiseMarker;
   public Tile tile;
 
-  public TileNoise(float noiseFrom, float noiseTo, Tile tile)
+  public TileNoise(float noiseMarker, Tile tile)
   {
-    Exceptions.ThrowIfLessThan(noiseFrom, MIN_NOISE_RANGE);
-    Exceptions.ThrowIfGreaterThan(noiseTo, MAX_NOISE_RANGE);
-    Exceptions.ThrowIfGreaterThan(noiseFrom, noiseTo);
+    Exceptions.ThrowIfLessThan(noiseMarker, MIN_NOISE_RANGE);
+    Exceptions.ThrowIfGreaterThan(noiseMarker, MAX_NOISE_RANGE);
 
-    this.noiseFrom = noiseFrom;
-    this.noiseTo = noiseTo;
+    this.noiseMarker = noiseMarker;
     this.tile = tile;
   }
 }

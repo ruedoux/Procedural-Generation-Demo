@@ -8,7 +8,7 @@ public partial class MapRoot : Node2D
   private readonly MapGenerator mapGenerator;
   private readonly TileMap tileMap;
 
-  private Vector2I tileSize = new(2, 2);
+  private readonly Vector2I tileSize = new(2, 2);
 
   public MapRoot()
   {
@@ -19,12 +19,12 @@ public partial class MapRoot : Node2D
     tileMap = ProceduralTileMapCreator.GenerateTileMap(tileSize, colors);
 
     TileNoise[] tileNoises = new TileNoise[] {
-      new(-1f, -0.5f, tileDatabase.GetEntry(TileDatabase.TileType.WATER)),
-      new(-0.5f, -0.4f, tileDatabase.GetEntry(TileDatabase.TileType.SAND)),
-      new(-0.4f, 0.3f, tileDatabase.GetEntry(TileDatabase.TileType.GRASS)),
-      new(0.3f, 0.6f, tileDatabase.GetEntry(TileDatabase.TileType.FOREST)),
-      new(0.6f, 0.9f, tileDatabase.GetEntry(TileDatabase.TileType.STONE)),
-      new(0.9f, 1f, tileDatabase.GetEntry(TileDatabase.TileType.SNOW)),
+      new(0f, tileDatabase.GetEntry(TileDatabase.TileType.WATER)),
+      new(0.1f, tileDatabase.GetEntry(TileDatabase.TileType.SAND)),
+      new(0.6f, tileDatabase.GetEntry(TileDatabase.TileType.GRASS)),
+      new(0.9f, tileDatabase.GetEntry(TileDatabase.TileType.FOREST)),
+      new(0.98f, tileDatabase.GetEntry(TileDatabase.TileType.STONE)),
+      new(1.0f, tileDatabase.GetEntry(TileDatabase.TileType.SNOW)),
     };
 
     tileNoiseRange = new(tileNoises, tileDatabase.GetEntry(TileDatabase.TileType.NONE));
@@ -33,9 +33,9 @@ public partial class MapRoot : Node2D
     {
       NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex,
       Seed = 1,
-      FractalOctaves = 3,
-      FractalLacunarity = 2,
-      Frequency = 0.05f
+      FractalOctaves = 1,
+      FractalLacunarity = 0,
+      Frequency = 0.03f
     };
 
     mapGenerator = new(fastNoiseLite, tileNoiseRange);
