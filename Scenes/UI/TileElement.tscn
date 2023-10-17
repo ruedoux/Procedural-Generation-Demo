@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cw6ht8c2nmlqq"]
+
+[ext_resource type="FontFile" uid="uid://claurx63ly4k3" path="res://Resources/Fonts/SpaceMono-Regular.ttf" id="1_kgyvw"]
+
+[node name="tileElement" type="HBoxContainer"]
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_kgyvw")
+text = "elementName"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("1_kgyvw")
