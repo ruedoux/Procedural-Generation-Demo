@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+namespace ProceduralGeneration;
+
 public partial class TileNoiseRange
 {
   private const uint RANGE_SIZE = 100;

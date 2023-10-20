@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://8tbvx74wj6nc"]
+[gd_scene load_steps=5 format=3 uid="uid://8tbvx74wj6nc"]
 
 [ext_resource type="Script" path="res://Scenes/UI/MainUI.gd" id="1_ybo3t"]
 [ext_resource type="FontFile" uid="uid://claurx63ly4k3" path="res://Resources/Fonts/SpaceMono-Regular.ttf" id="2_6l5sf"]
+[ext_resource type="PackedScene" uid="uid://cw6ht8c2nmlqq" path="res://Scenes/UI/TileElement.tscn" id="3_4cu5i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7ckc"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_ybo3t")
 
-[node name="Control" type="Control" parent="."]
+[node name="C" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,7 +20,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="H" type="HBoxContainer" parent="Control"]
+[node name="H" type="HBoxContainer" parent="C"]
 layout_direction = 3
 layout_mode = 1
 anchors_preset = 15
@@ -25,17 +29,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Options" type="BoxContainer" parent="Control/H"]
+[node name="B" type="BoxContainer" parent="C/H"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.35
 
-[node name="Panel" type="Panel" parent="Control/H/Options"]
+[node name="P" type="Panel" parent="C/H/B"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_a7ckc")
 
-[node name="Sort" type="VBoxContainer" parent="Control/H/Options/Panel"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P"]
 layout_direction = 2
 layout_mode = 1
 anchors_preset = 15
@@ -44,7 +49,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Noise" type="MarginContainer" parent="Control/H/Options/Panel/Sort"]
+[node name="Noise" type="MarginContainer" parent="C/H/B/P/V"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -52,28 +57,28 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="V" type="VBoxContainer" parent="Control/H/Options/Panel/Sort/Noise"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/Noise"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Noise"
 horizontal_alignment = 1
 
-[node name="Seed" type="HBoxContainer" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Seed" type="HBoxContainer" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V/Seed"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V/Seed"]
 layout_mode = 2
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Seed   "
 
-[node name="LineEdit" type="LineEdit" parent="Control/H/Options/Panel/Sort/Noise/V/Seed"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/Noise/V/Seed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -81,37 +86,37 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "123"
 
-[node name="Button" type="Button" parent="Control/H/Options/Panel/Sort/Noise/V/Seed"]
+[node name="Button" type="Button" parent="C/H/B/P/V/Noise/V/Seed"]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Random"
 
-[node name="Type" type="HBoxContainer" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Type" type="HBoxContainer" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V/Type"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V/Type"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Type   "
 
-[node name="OptionButton" type="OptionButton" parent="Control/H/Options/Panel/Sort/Noise/V/Type"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/Noise/V/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="Octaves" type="HBoxContainer" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Octaves" type="HBoxContainer" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V/Octaves"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V/Octaves"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Octaves"
 
-[node name="LineEdit" type="LineEdit" parent="Control/H/Options/Panel/Sort/Noise/V/Octaves"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/Noise/V/Octaves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -119,16 +124,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "1"
 
-[node name="Lacunarity" type="HBoxContainer" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Lacunarity" type="HBoxContainer" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V/Lacunarity"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V/Lacunarity"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Lac.   "
 
-[node name="LineEdit" type="LineEdit" parent="Control/H/Options/Panel/Sort/Noise/V/Lacunarity"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/Noise/V/Lacunarity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -136,16 +141,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "1"
 
-[node name="Frequency" type="HBoxContainer" parent="Control/H/Options/Panel/Sort/Noise/V"]
+[node name="Frequency" type="HBoxContainer" parent="C/H/B/P/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Noise/V/Frequency"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Noise/V/Frequency"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Freq.  "
 
-[node name="LineEdit" type="LineEdit" parent="Control/H/Options/Panel/Sort/Noise/V/Frequency"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/Noise/V/Frequency"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -153,7 +158,7 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.01"
 
-[node name="Tiles" type="MarginContainer" parent="Control/H/Options/Panel/Sort"]
+[node name="Tiles" type="MarginContainer" parent="C/H/B/P/V"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 5
@@ -161,26 +166,71 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="V" type="VBoxContainer" parent="Control/H/Options/Panel/Sort/Tiles"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/Tiles"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Control/H/Options/Panel/Sort/Tiles/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/Tiles/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Tiles"
 horizontal_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/H/Options/Panel/Sort/Tiles/V"]
+[node name="ScrollContainer" type="ScrollContainer" parent="C/H/B/P/V/Tiles/V"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="V" type="VBoxContainer" parent="Control/H/Options/Panel/Sort/Tiles/V/ScrollContainer"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/Tiles/V/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Generate" type="MarginContainer" parent="Control/H/Options/Panel/Sort"]
+[node name="tileElement" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V" instance=ExtResource("3_4cu5i")]
+layout_mode = 2
+
+[node name="Label" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement" index="0"]
+text = "tileName"
+
+[node name="LineEdit" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement" index="1"]
+text = "0.0"
+
+[node name="tileElement2" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V" instance=ExtResource("3_4cu5i")]
+layout_mode = 2
+
+[node name="Label" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement2" index="0"]
+text = "tileName"
+
+[node name="LineEdit" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement2" index="1"]
+text = "0.0"
+
+[node name="tileElement3" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V" instance=ExtResource("3_4cu5i")]
+layout_mode = 2
+
+[node name="Label" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement3" index="0"]
+text = "tileName"
+
+[node name="LineEdit" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement3" index="1"]
+text = "0.0"
+
+[node name="tileElement4" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V" instance=ExtResource("3_4cu5i")]
+layout_mode = 2
+
+[node name="Label" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement4" index="0"]
+text = "tileName"
+
+[node name="LineEdit" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement4" index="1"]
+text = "0.0"
+
+[node name="tileElement5" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V" instance=ExtResource("3_4cu5i")]
+layout_mode = 2
+
+[node name="Label" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement5" index="0"]
+text = "tileName"
+
+[node name="LineEdit" parent="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement5" index="1"]
+text = "0.0"
+
+[node name="Generate" type="MarginContainer" parent="C/H/B/P/V"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -188,15 +238,20 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="Control/H/Options/Panel/Sort/Generate"]
+[node name="Button" type="Button" parent="C/H/B/P/V/Generate"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
 text = "Generate"
 
-[node name="Null" type="BoxContainer" parent="Control/H"]
+[node name="Null" type="BoxContainer" parent="C/H"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="Control/H/Options/Panel/Sort/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]
-[connection signal="pressed" from="Control/H/Options/Panel/Sort/Generate/Button" to="." method="_generate_pressed"]
+[connection signal="pressed" from="C/H/B/P/V/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]
+
+[editable path="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement"]
+[editable path="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement2"]
+[editable path="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement3"]
+[editable path="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement4"]
+[editable path="C/H/B/P/V/Tiles/V/ScrollContainer/V/tileElement5"]

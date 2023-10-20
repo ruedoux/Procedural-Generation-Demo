@@ -1,5 +1,7 @@
 using System;
 
+namespace ProceduralGeneration;
+
 public static partial class Exceptions
 {
   public static void ThrowIfNotEqual(object isNow, object shouldBe)

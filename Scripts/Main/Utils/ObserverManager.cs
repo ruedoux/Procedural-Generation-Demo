@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+namespace ProceduralGeneration;
+
 public class ObserverManager<T>
 {
   public delegate void functionDelegate(T arg);

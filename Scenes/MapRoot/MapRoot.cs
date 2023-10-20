@@ -1,14 +1,22 @@
 using System.Linq;
 using Godot;
 
+namespace ProceduralGeneration;
+
 public partial class MapRoot : Node2D
 {
-  private readonly TileDatabase tileDatabase = new();
-  private readonly TileNoiseRange tileNoiseRange;
-  private readonly MapGenerator mapGenerator;
-  private readonly TileMap tileMap;
+  LineEdit noiseSeed;
+  LineEdit noiseOctaves;
+  LineEdit noiseLacunarity;
+  LineEdit noiseFrequency;
+  OptionButton noiseType;
+  Button generateButton;
 
+
+  private readonly TileDatabase tileDatabase = new();
+  private readonly TileMap tileMap;
   private readonly Vector2I tileSize = new(2, 2);
+
 
   public MapRoot()
   {
@@ -17,7 +25,26 @@ public partial class MapRoot : Node2D
       .Select(keyPair => keyPair.Value.color).ToArray();
 
     tileMap = ProceduralTileMapCreator.GenerateTileMap(tileSize, colors);
+  }
 
+  public override void _Ready()
+  {
+    noiseSeed = GetNode<LineEdit>("MainUI/C/H/B/P/V/Noise/V/Seed/LineEdit");
+    noiseOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/V/Noise/V/Octaves/LineEdit");
+    noiseLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/V/Noise/V/Lacunarity/LineEdit");
+    noiseFrequency = GetNode<LineEdit>("MainUI/C/H/B/P/V/Noise/V/Frequency/LineEdit");
+    noiseType = GetNode<OptionButton>("MainUI/C/H/B/P/V/Noise/V/Type/OptionButton");
+    generateButton = GetNode<Button>("MainUI/C/H/B/P/V/Generate/Button");
+
+    generateButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
+
+    AddChild(tileMap);
+    PressedGenerateButton();
+  }
+
+  public void PressedGenerateButton()
+  {
     TileNoise[] tileNoises = new TileNoise[] {
       new(0f, tileDatabase.GetEntry(TileDatabase.TileType.WATER)),
       new(0.1f, tileDatabase.GetEntry(TileDatabase.TileType.SAND)),
@@ -27,35 +54,33 @@ public partial class MapRoot : Node2D
       new(1.0f, tileDatabase.GetEntry(TileDatabase.TileType.SNOW)),
     };
 
-    tileNoiseRange = new(tileNoises, tileDatabase.GetEntry(TileDatabase.TileType.NONE));
+    TileNoiseRange tileNoiseRange = new(
+      tileNoises, tileDatabase.GetEntry(TileDatabase.TileType.NONE));
 
     FastNoiseLite fastNoiseLite = new()
     {
       NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex,
-      Seed = 1,
-      FractalOctaves = 1,
-      FractalLacunarity = 0,
-      Frequency = 0.03f
+      Seed = SanitizeIntField(noiseSeed),
+      FractalOctaves = SanitizeIntField(noiseOctaves),
+      FractalLacunarity = SanitizeFloatField(noiseLacunarity),
+      Frequency = SanitizeFloatField(noiseFrequency)
     };
-
-    mapGenerator = new(fastNoiseLite, tileNoiseRange);
-    FillTileMapWithNoise();
+    MapGenerator mapGenerator = new(fastNoiseLite, tileNoiseRange);
+    mapGenerator.FillTileMapWithNoise(tileMap);
   }
 
-  public override void _Ready()
+  private static float SanitizeFloatField(LineEdit lineEdit)
   {
-    AddChild(tileMap);
+    float result = InputSanitizer.SanitizeFloat(lineEdit.Text);
+    lineEdit.Text = result.ToString();
+    return result;
   }
 
-  private void FillTileMapWithNoise()
+  private static int SanitizeIntField(LineEdit lineEdit)
   {
-    Vector2 size = new(600, 400);
-
-    for (int x = 0; x < size.X; x++)
-      for (int y = 0; y < size.Y; y++)
-      {
-        Tile tile = mapGenerator.GetTileOnPosition(new Vector3I(x, y, 0));
-        tileMap.SetCell(0, new Vector2I(x, y), 0, new Vector2I(tile.tileId, 0));
-      }
+    int result = InputSanitizer.SanitizeInt(lineEdit.Text);
+    lineEdit.Text = result.ToString();
+    return result;
   }
+
 }

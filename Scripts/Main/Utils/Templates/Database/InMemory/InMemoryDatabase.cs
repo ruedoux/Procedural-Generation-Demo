@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+namespace ProceduralGeneration;
+
 public class InMemoryDatabase<V> where V : class
 {
   public readonly Dictionary<object, V> entries = new();

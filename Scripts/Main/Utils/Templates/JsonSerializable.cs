@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 
+namespace ProceduralGeneration;
+
 [JsonObject(MemberSerialization.OptIn)]
 public partial class JsonSerializable
 {

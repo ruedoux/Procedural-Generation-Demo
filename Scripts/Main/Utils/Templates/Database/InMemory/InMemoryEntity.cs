@@ -1,3 +1,4 @@
+namespace ProceduralGeneration;
 
 public class InMemoryEntity<K> : JsonSerializable
 {

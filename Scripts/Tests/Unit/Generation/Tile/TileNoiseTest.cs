@@ -1,4 +1,5 @@
 using SGT;
+using ProceduralGeneration;
 
 namespace UnitTests;
 

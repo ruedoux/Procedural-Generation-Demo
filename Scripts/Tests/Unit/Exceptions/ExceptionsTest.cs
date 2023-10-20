@@ -1,5 +1,6 @@
 namespace UnitTests;
 using SGT;
+using ProceduralGeneration;
 
 public class ExceptionsTest : SimpleTestClass
 {

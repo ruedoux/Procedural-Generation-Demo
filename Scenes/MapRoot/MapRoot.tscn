@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://co3ubwh4ioysa"]
 
 [ext_resource type="Script" path="res://Scenes/MapRoot/MapRoot.cs" id="1_762sv"]
-[ext_resource type="PackedScene" uid="uid://d0nq2j0c15qrm" path="res://Scenes/UI/MainUI.tscn" id="2_1qw8d"]
+[ext_resource type="PackedScene" uid="uid://8tbvx74wj6nc" path="res://Scenes/UI/MainUI.tscn" id="2_1qw8d"]
 
 [node name="MapRoot" type="Node2D"]
 script = ExtResource("1_762sv")

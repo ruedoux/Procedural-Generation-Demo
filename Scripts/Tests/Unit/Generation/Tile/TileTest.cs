@@ -1,6 +1,7 @@
 namespace UnitTests;
 using System;
 using SGT;
+using ProceduralGeneration;
 
 public class TileTest : SimpleTestClass
 {

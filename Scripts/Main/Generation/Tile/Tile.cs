@@ -1,6 +1,8 @@
 using Godot;
 using Newtonsoft.Json;
 
+namespace ProceduralGeneration;
+
 public class Tile : JsonSerializable
 {
   [JsonProperty] public int tileId;

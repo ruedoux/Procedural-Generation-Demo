@@ -1,5 +1,6 @@
 using Godot;
 
+namespace ProceduralGeneration;
 
 public class TileDatabase : InMemoryDatabase<Tile>
 {

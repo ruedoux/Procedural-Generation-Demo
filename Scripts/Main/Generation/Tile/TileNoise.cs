@@ -1,3 +1,4 @@
+namespace ProceduralGeneration;
 
 public partial class TileNoise
 {
