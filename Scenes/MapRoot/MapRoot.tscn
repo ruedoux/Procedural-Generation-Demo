@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://co3ubwh4ioysa"]
+[gd_scene load_steps=4 format=3 uid="uid://co3ubwh4ioysa"]
 
 [ext_resource type="Script" path="res://Scenes/MapRoot/MapRoot.cs" id="1_762sv"]
 [ext_resource type="PackedScene" uid="uid://8tbvx74wj6nc" path="res://Scenes/UI/MainUI.tscn" id="2_1qw8d"]
+[ext_resource type="Script" path="res://Scenes/MapRoot/Camera2D.cs" id="3_i5yid"]
 
 [node name="MapRoot" type="Node2D"]
 script = ExtResource("1_762sv")
 
 [node name="MainUI" parent="." instance=ExtResource("2_1qw8d")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("3_i5yid")
