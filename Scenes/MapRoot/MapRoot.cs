@@ -81,7 +81,7 @@ public partial class MapRoot : Node2D
       new(0.1f, tileDatabase.GetEntry(TileDatabase.TileType.SAND)),
       new(0.6f, tileDatabase.GetEntry(TileDatabase.TileType.GRASS)),
       new(0.9f, tileDatabase.GetEntry(TileDatabase.TileType.FOREST)),
-      new(0.98f, tileDatabase.GetEntry(TileDatabase.TileType.STONE)),
+      new(0.95f, tileDatabase.GetEntry(TileDatabase.TileType.STONE)),
       new(1.0f, tileDatabase.GetEntry(TileDatabase.TileType.SNOW)),
     };
 

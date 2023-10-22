@@ -88,7 +88,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
-text = "10"
+text = "100"
 
 [node name="Height" type="HBoxContainer" parent="C/H/B/P/S/V/Size/V"]
 layout_mode = 2
@@ -107,7 +107,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
-text = "10"
+text = "100"
 
 [node name="Noise" type="MarginContainer" parent="C/H/B/P/S/V"]
 layout_mode = 2

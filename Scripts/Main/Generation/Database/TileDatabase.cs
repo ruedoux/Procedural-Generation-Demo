@@ -10,7 +10,7 @@ public class TileDatabase : InMemoryDatabase<Tile>
   {
     AddTile(TileType.WATER, Colors.SkyBlue);
     AddTile(TileType.SAND, Colors.Yellow);
-    AddTile(TileType.GRASS, Colors.LawnGreen);
+    AddTile(TileType.GRASS, Colors.LimeGreen);
     AddTile(TileType.FOREST, Colors.ForestGreen);
     AddTile(TileType.STONE, Colors.LightGray);
     AddTile(TileType.SNOW, Colors.White);

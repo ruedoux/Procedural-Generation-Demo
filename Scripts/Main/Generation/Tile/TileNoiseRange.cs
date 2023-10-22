@@ -18,7 +18,7 @@ public partial class TileNoiseRange
 
     uint index = 0;
     foreach (TileNoise tileNoise in orderedRanges)
-      for (; index < NoiseToIndex(tileNoise.noiseMarker); index++)
+      for (; index <= NoiseToIndex(tileNoise.noiseMarker); index++)
         range[index] = tileNoise.tile;
   }
 
@@ -28,5 +28,5 @@ public partial class TileNoiseRange
   }
 
   private static uint NoiseToIndex(float noise)
-    => Math.Clamp((uint)((noise + 1f) * 100 / 2), 0, 99);
+    => Math.Clamp((uint)((noise + 1f) * 100 / 2), 0, RANGE_SIZE - 1);
 }
