@@ -20,12 +20,10 @@ public partial class MapGenerator
     return tileNoiseRange.GetTileByNoise(fastNoiseLite.GetNoise3Dv(vec));
   }
 
-  public void FillTileMapWithNoise(TileMap tileMap)
+  public void FillTileMapWithNoise(TileMap tileMap, int width, int height)
   {
-    Vector2 size = new(600, 400);
-
-    for (int x = 0; x < size.X; x++)
-      for (int y = 0; y < size.Y; y++)
+    for (int x = 0; x < width; x++)
+      for (int y = 0; y < height; y++)
       {
         Tile tile = GetTileOnPosition(new Vector3I(x, y, 0));
         tileMap.SetCell(0, new Vector2I(x, y), 0, new Vector2I(tile.tileId, 0));

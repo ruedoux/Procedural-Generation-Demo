@@ -22,4 +22,12 @@ public static class InputSanitizer
 
     return defaultValue;
   }
+
+  public static T SanitizeEnum<T>(string enumText) where T : Enum
+  {
+    if (Enum.TryParse(typeof(T), enumText, out object enumValue))
+      return (T)enumValue;
+
+    return Enum.GetValues(typeof(T)).Length > 0 ? (T)Enum.GetValues(typeof(T)).GetValue(0) : default(T);
+  }
 }
