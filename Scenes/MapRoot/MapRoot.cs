@@ -2,11 +2,13 @@ using System;
 using System.Linq;
 using Godot;
 
+using static Godot.FastNoiseLite;
+
 namespace ProceduralGeneration;
 
 public partial class MapRoot : Node2D
 {
-  private MapCamera mapCamera = new();
+  private MapCamera mapCamera;
 
   private LineEdit mapWidth;
   private LineEdit mapHeight;
@@ -19,9 +21,13 @@ public partial class MapRoot : Node2D
   private OptionButton noiseDomainFractal;
   private OptionButton noiseFractal;
 
-  private LineEdit noiseOctaves;
-  private LineEdit noiseLacunarity;
+  private LineEdit fractalGain;
+  private LineEdit fractalOctaves;
+  private LineEdit fractalLacunarity;
   private LineEdit noiseFrequency;
+  private LineEdit cellularJitter;
+  private LineEdit fractalStrenght;
+  private LineEdit fractalPingPong;
 
   private Button generateButton;
 
@@ -46,31 +52,37 @@ public partial class MapRoot : Node2D
     mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Size/V/Height/LineEdit");
 
     noiseSeed = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Seed/LineEdit");
-    noiseType = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Type/OptionButton");
-    noiseDistance = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Distance/OptionButton");
-    noiseReturn = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Return/OptionButton");
+    noiseType = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/NoiseType/OptionButton");
+    noiseDistance = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularDistance/OptionButton");
+    noiseReturn = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularReturn/OptionButton");
     noiseDomainWarp = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainWarp/OptionButton");
     noiseDomainFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainFractal/OptionButton");
     noiseFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Fractal/OptionButton");
 
-    noiseOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Octaves/LineEdit");
-    noiseLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Lacunarity/LineEdit");
+    fractalGain = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalGain/LineEdit");
+    fractalOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalOctaves/LineEdit");
+    fractalLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalLacunarity/LineEdit");
+    fractalStrenght = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalStrenght/LineEdit");
+    fractalPingPong = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalPingPong/LineEdit"); ;
     noiseFrequency = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Frequency/LineEdit");
+    cellularJitter = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/CellularJitter/LineEdit");
 
     generateButton = GetNode<Button>("MainUI/C/H/B/P/S/V/Generate/Button");
 
-    FillOptionWithEnum<FastNoiseLite.NoiseTypeEnum>(noiseType);
-    FillOptionWithEnum<FastNoiseLite.CellularDistanceFunctionEnum>(noiseDistance);
-    FillOptionWithEnum<FastNoiseLite.CellularReturnTypeEnum>(noiseReturn);
-    FillOptionWithEnum<FastNoiseLite.DomainWarpTypeEnum>(noiseDomainWarp);
-    FillOptionWithEnum<FastNoiseLite.DomainWarpFractalTypeEnum>(noiseDomainFractal);
-    FillOptionWithEnum<FastNoiseLite.FractalTypeEnum>(noiseFractal);
+    FillOptionWithEnum(noiseType, NoiseTypeEnum.SimplexSmooth);
+    FillOptionWithEnum(noiseDistance, CellularDistanceFunctionEnum.Euclidean);
+    FillOptionWithEnum(noiseReturn, CellularReturnTypeEnum.Distance);
+    FillOptionWithEnum(noiseDomainWarp, DomainWarpTypeEnum.Simplex);
+    FillOptionWithEnum(noiseDomainFractal, DomainWarpFractalTypeEnum.Progressive);
+    FillOptionWithEnum(noiseFractal, FractalTypeEnum.Fbm);
 
     generateButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
 
+    mapCamera = new(GetNode<Control>("MainUI/C/H/B"));
     AddChild(mapCamera);
     AddChild(tileMap);
+
     PressedGenerateButton();
   }
 
@@ -90,27 +102,34 @@ public partial class MapRoot : Node2D
 
     FastNoiseLite fastNoiseLite = new()
     {
-      NoiseType = SanitizeEnum<FastNoiseLite.NoiseTypeEnum>(noiseType),
-      CellularDistanceFunction = SanitizeEnum<FastNoiseLite.CellularDistanceFunctionEnum>(noiseDistance),
-      CellularReturnType = SanitizeEnum<FastNoiseLite.CellularReturnTypeEnum>(noiseReturn),
-      DomainWarpType = SanitizeEnum<FastNoiseLite.DomainWarpTypeEnum>(noiseDomainWarp),
-      DomainWarpFractalType = SanitizeEnum<FastNoiseLite.DomainWarpFractalTypeEnum>(noiseDomainFractal),
-      FractalType = SanitizeEnum<FastNoiseLite.FractalTypeEnum>(noiseFractal),
+      NoiseType = SanitizeEnum<NoiseTypeEnum>(noiseType),
+      CellularDistanceFunction = SanitizeEnum<CellularDistanceFunctionEnum>(noiseDistance),
+      CellularReturnType = SanitizeEnum<CellularReturnTypeEnum>(noiseReturn),
+      DomainWarpType = SanitizeEnum<DomainWarpTypeEnum>(noiseDomainWarp),
+      DomainWarpFractalType = SanitizeEnum<DomainWarpFractalTypeEnum>(noiseDomainFractal),
+      FractalType = SanitizeEnum<FractalTypeEnum>(noiseFractal),
       Seed = SanitizeIntField(noiseSeed),
-      FractalOctaves = SanitizeIntField(noiseOctaves),
-      FractalLacunarity = SanitizeFloatField(noiseLacunarity),
-      Frequency = SanitizeFloatField(noiseFrequency)
+      FractalOctaves = SanitizeIntField(fractalOctaves),
+      FractalLacunarity = SanitizeFloatField(fractalLacunarity),
+      Frequency = SanitizeFloatField(noiseFrequency),
+      CellularJitter = SanitizeFloatField(cellularJitter),
+      FractalWeightedStrength = SanitizeFloatField(fractalStrenght),
+      FractalPingPongStrength = SanitizeFloatField(fractalPingPong),
+      FractalGain = SanitizeFloatField(fractalGain),
     };
 
     MapGenerator mapGenerator = new(fastNoiseLite, tileNoiseRange);
     mapGenerator.FillTileMapWithNoise(
       tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
+    Logger.Log("Generation finished");
   }
 
-  private static void FillOptionWithEnum<T>(OptionButton enumOptionButton) where T : Enum
+  private static void FillOptionWithEnum<T>(
+    OptionButton enumOptionButton, T defaultValue) where T : Enum
   {
     foreach (var noise in Enum.GetValues(typeof(T)))
       enumOptionButton.AddItem(noise.ToString());
+    enumOptionButton.Select(Convert.ToInt32(defaultValue));
   }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum

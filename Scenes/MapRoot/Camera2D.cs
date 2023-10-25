@@ -5,19 +5,24 @@ namespace ProceduralGeneration;
 
 public partial class MapCamera : Camera2D
 {
+  Control UI;
   float maxZoom;
   float minZoom;
 
   public float zoomValue = 0.05f;
 
-  public MapCamera(float maxZoom = 8.0f, float minZoom = 0.5f)
+  public MapCamera(Control UI, float maxZoom = 8.0f, float minZoom = 0.5f)
   {
+    this.UI = UI;
     this.maxZoom = maxZoom;
     this.minZoom = minZoom;
   }
 
   public override void _Input(InputEvent inputEvent)
   {
+    if (IsMouseOnUI(UI))
+      return;
+
     if (inputEvent is InputEventMouseMotion mouseMotion)
       if (mouseMotion.ButtonMask == MouseButtonMask.Middle)
         MoveCamera(-mouseMotion.Relative);
@@ -33,8 +38,6 @@ public partial class MapCamera : Camera2D
 
   private void MoveCamera(Vector2 direction)
   {
-
-
     Position += direction;
   }
 
@@ -46,4 +49,11 @@ public partial class MapCamera : Camera2D
       return;
     Zoom = new Vector2(Zoom.X + value, Zoom.Y + value);
   }
+
+  //static func is_mouse_on_ui(element:Control) -> bool:
+  //  return element.get_global_rect().has_point(element.get_global_mouse_position())
+
+  private static bool IsMouseOnUI(Control element)
+    => element.GetGlobalRect().HasPoint(element.GetGlobalMousePosition());
+
 }
