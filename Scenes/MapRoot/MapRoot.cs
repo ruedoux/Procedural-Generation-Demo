@@ -6,31 +6,9 @@ using static Godot.FastNoiseLite;
 
 namespace ProceduralGeneration;
 
-public partial class MapRoot : Node2D
+public partial class MapRoot : MapRootUI
 {
   private MapCamera mapCamera;
-
-  private LineEdit mapWidth;
-  private LineEdit mapHeight;
-
-  private LineEdit noiseSeed;
-  private OptionButton noiseType;
-  private OptionButton noiseDistance;
-  private OptionButton noiseReturn;
-  private OptionButton noiseDomainWarp;
-  private OptionButton noiseDomainFractal;
-  private OptionButton noiseFractal;
-
-  private LineEdit fractalGain;
-  private LineEdit fractalOctaves;
-  private LineEdit fractalLacunarity;
-  private LineEdit noiseFrequency;
-  private LineEdit cellularJitter;
-  private LineEdit fractalStrenght;
-  private LineEdit fractalPingPong;
-
-  private Button generateButton;
-
 
   private readonly TileDatabase tileDatabase = new();
   private readonly TileMap tileMap;
@@ -48,33 +26,7 @@ public partial class MapRoot : Node2D
 
   public override void _Ready()
   {
-    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Size/V/Width/LineEdit");
-    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Size/V/Height/LineEdit");
-
-    noiseSeed = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Seed/LineEdit");
-    noiseType = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/NoiseType/OptionButton");
-    noiseDistance = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularDistance/OptionButton");
-    noiseReturn = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularReturn/OptionButton");
-    noiseDomainWarp = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainWarp/OptionButton");
-    noiseDomainFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainFractal/OptionButton");
-    noiseFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Fractal/OptionButton");
-
-    fractalGain = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalGain/LineEdit");
-    fractalOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalOctaves/LineEdit");
-    fractalLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalLacunarity/LineEdit");
-    fractalStrenght = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalStrenght/LineEdit");
-    fractalPingPong = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalPingPong/LineEdit"); ;
-    noiseFrequency = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Frequency/LineEdit");
-    cellularJitter = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/CellularJitter/LineEdit");
-
-    generateButton = GetNode<Button>("MainUI/C/H/B/P/S/V/Generate/Button");
-
-    FillOptionWithEnum(noiseType, NoiseTypeEnum.SimplexSmooth);
-    FillOptionWithEnum(noiseDistance, CellularDistanceFunctionEnum.Euclidean);
-    FillOptionWithEnum(noiseReturn, CellularReturnTypeEnum.Distance);
-    FillOptionWithEnum(noiseDomainWarp, DomainWarpTypeEnum.Simplex);
-    FillOptionWithEnum(noiseDomainFractal, DomainWarpFractalTypeEnum.Progressive);
-    FillOptionWithEnum(noiseFractal, FractalTypeEnum.Fbm);
+    InitializeUI();
 
     generateButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
@@ -116,20 +68,17 @@ public partial class MapRoot : Node2D
       FractalWeightedStrength = SanitizeFloatField(fractalStrenght),
       FractalPingPongStrength = SanitizeFloatField(fractalPingPong),
       FractalGain = SanitizeFloatField(fractalGain),
+      DomainWarpAmplitude = SanitizeFloatField(domainAmplitude),
+      DomainWarpFractalGain = SanitizeFloatField(domainGain),
+      DomainWarpFractalLacunarity = SanitizeFloatField(domainLacunarity),
+      DomainWarpFractalOctaves = SanitizeIntField(domainOctaves),
+      DomainWarpFrequency = SanitizeFloatField(domainFrequency),
     };
 
     MapGenerator mapGenerator = new(fastNoiseLite, tileNoiseRange);
     mapGenerator.FillTileMapWithNoise(
       tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
     Logger.Log("Generation finished");
-  }
-
-  private static void FillOptionWithEnum<T>(
-    OptionButton enumOptionButton, T defaultValue) where T : Enum
-  {
-    foreach (var noise in Enum.GetValues(typeof(T)))
-      enumOptionButton.AddItem(noise.ToString());
-    enumOptionButton.Select(Convert.ToInt32(defaultValue));
   }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
@@ -152,5 +101,4 @@ public partial class MapRoot : Node2D
     lineEdit.Text = result.ToString();
     return result;
   }
-
 }

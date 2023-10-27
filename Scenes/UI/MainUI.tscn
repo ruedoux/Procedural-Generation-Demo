@@ -365,6 +365,91 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.01"
 
+[node name="DomainAmplitude" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/S/V/Noise/V/DomainAmplitude"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Domain Amplitude   "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/S/V/Noise/V/DomainAmplitude"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "30"
+
+[node name="DomainGain" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/S/V/Noise/V/DomainGain"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Domain Gain        "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/S/V/Noise/V/DomainGain"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "0.5"
+
+[node name="DomainLacunarity" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/S/V/Noise/V/DomainLacunarity"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Domain Lacunarity  "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/S/V/Noise/V/DomainLacunarity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "6"
+
+[node name="DomainOctaves" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/S/V/Noise/V/DomainOctaves"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Domain Octaves     "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/S/V/Noise/V/DomainOctaves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "5"
+
+[node name="DomainFrequency" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/S/V/Noise/V/DomainFrequency"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Domain Frequency   "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/S/V/Noise/V/DomainFrequency"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "0.05"
+
 [node name="CellularJitter" type="HBoxContainer" parent="C/H/B/P/S/V/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
