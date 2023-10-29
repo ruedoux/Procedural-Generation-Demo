@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using Godot;
 
 using static Godot.FastNoiseLite;
@@ -11,13 +10,14 @@ public partial class MapRootUI : Node2D
   protected LineEdit mapWidth;
   protected LineEdit mapHeight;
 
+  protected Control optionMenu;
   protected LineEdit noiseSeed;
   protected OptionButton noiseType;
-  protected OptionButton noiseDistance;
-  protected OptionButton noiseReturn;
-  protected OptionButton noiseDomainWarp;
-  protected OptionButton noiseDomainFractal;
-  protected OptionButton noiseFractal;
+  protected OptionButton cellularDistance;
+  protected OptionButton cellularReturn;
+  protected OptionButton domainWarp;
+  protected OptionButton domainFractal;
+  protected OptionButton fractal;
 
   protected LineEdit fractalGain;
   protected LineEdit fractalOctaves;
@@ -33,41 +33,46 @@ public partial class MapRootUI : Node2D
   protected LineEdit domainFrequency;
 
   protected Button generateButton;
+  protected Button generateImageButton;
+  protected FileDialog generateImageDialog;
 
   protected void InitializeUI()
   {
-    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Size/V/Width/LineEdit");
-    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Size/V/Height/LineEdit");
+    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Width/LineEdit");
+    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Height/LineEdit");
 
-    noiseSeed = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Seed/LineEdit");
-    noiseType = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/NoiseType/OptionButton");
-    noiseDistance = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularDistance/OptionButton");
-    noiseReturn = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/CellularReturn/OptionButton");
-    noiseDomainWarp = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainWarp/OptionButton");
-    noiseDomainFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/DomainFractal/OptionButton");
-    noiseFractal = GetNode<OptionButton>("MainUI/C/H/B/P/S/V/Noise/V/Fractal/OptionButton");
+    optionMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Noise/V");
+    noiseSeed = optionMenu.GetNode<LineEdit>("Seed/LineEdit");
+    noiseType = optionMenu.GetNode<OptionButton>("NoiseType/OptionButton");
+    cellularDistance = optionMenu.GetNode<OptionButton>("CellularDistance/OptionButton");
+    cellularReturn = optionMenu.GetNode<OptionButton>("CellularReturn/OptionButton");
+    domainWarp = optionMenu.GetNode<OptionButton>("DomainWarp/OptionButton");
+    domainFractal = optionMenu.GetNode<OptionButton>("DomainFractal/OptionButton");
+    fractal = optionMenu.GetNode<OptionButton>("Fractal/OptionButton");
 
-    fractalGain = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalGain/LineEdit");
-    fractalOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalOctaves/LineEdit");
-    fractalLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalLacunarity/LineEdit");
-    fractalStrenght = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalStrenght/LineEdit");
-    fractalPingPong = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/FractalPingPong/LineEdit"); ;
-    noiseFrequency = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/Frequency/LineEdit");
-    cellularJitter = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/CellularJitter/LineEdit");
-    domainAmplitude = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/DomainAmplitude/LineEdit");
-    domainGain = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/DomainGain/LineEdit");
-    domainLacunarity = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/DomainLacunarity/LineEdit");
-    domainOctaves = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/DomainOctaves/LineEdit");
-    domainFrequency = GetNode<LineEdit>("MainUI/C/H/B/P/S/V/Noise/V/DomainFrequency/LineEdit");
+    fractalGain = optionMenu.GetNode<LineEdit>("FractalGain/LineEdit");
+    fractalOctaves = optionMenu.GetNode<LineEdit>("FractalOctaves/LineEdit");
+    fractalLacunarity = optionMenu.GetNode<LineEdit>("FractalLacunarity/LineEdit");
+    fractalStrenght = optionMenu.GetNode<LineEdit>("FractalStrenght/LineEdit");
+    fractalPingPong = optionMenu.GetNode<LineEdit>("FractalPingPong/LineEdit"); ;
+    noiseFrequency = optionMenu.GetNode<LineEdit>("Frequency/LineEdit");
+    cellularJitter = optionMenu.GetNode<LineEdit>("CellularJitter/LineEdit");
+    domainAmplitude = optionMenu.GetNode<LineEdit>("DomainAmplitude/LineEdit");
+    domainGain = optionMenu.GetNode<LineEdit>("DomainGain/LineEdit");
+    domainLacunarity = optionMenu.GetNode<LineEdit>("DomainLacunarity/LineEdit");
+    domainOctaves = optionMenu.GetNode<LineEdit>("DomainOctaves/LineEdit");
+    domainFrequency = optionMenu.GetNode<LineEdit>("DomainFrequency/LineEdit");
 
-    generateButton = GetNode<Button>("MainUI/C/H/B/P/S/V/Generate/Button");
+    generateButton = GetNode<Button>("MainUI/C/H/B/P/V/Generate/Button");
+    generateImageButton = GetNode<Button>("MainUI/C/H/B/P/V/GenerateImage/Button");
+    generateImageDialog = GetNode<FileDialog>("MainUI/C/H/B/P/V/GenerateImage/FileDialog");
 
     FillOptionWithEnum(noiseType, NoiseTypeEnum.SimplexSmooth);
-    FillOptionWithEnum(noiseDistance, CellularDistanceFunctionEnum.Euclidean);
-    FillOptionWithEnum(noiseReturn, CellularReturnTypeEnum.Distance);
-    FillOptionWithEnum(noiseDomainWarp, DomainWarpTypeEnum.Simplex);
-    FillOptionWithEnum(noiseDomainFractal, DomainWarpFractalTypeEnum.Progressive);
-    FillOptionWithEnum(noiseFractal, FractalTypeEnum.Fbm);
+    FillOptionWithEnum(cellularDistance, CellularDistanceFunctionEnum.Euclidean);
+    FillOptionWithEnum(cellularReturn, CellularReturnTypeEnum.Distance);
+    FillOptionWithEnum(domainWarp, DomainWarpTypeEnum.Simplex);
+    FillOptionWithEnum(domainFractal, DomainWarpFractalTypeEnum.Progressive);
+    FillOptionWithEnum(fractal, FractalTypeEnum.Fbm);
   }
 
   private static void FillOptionWithEnum<T>(

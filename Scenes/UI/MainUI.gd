@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var noiseSeed: LineEdit = $C/H/B/P/S/V/Noise/V/Seed/LineEdit
+@onready var noiseSeed: LineEdit = $C/H/B/P/V/S/V/Noise/V/Seed/LineEdit
 
 
 func _ready() -> void:

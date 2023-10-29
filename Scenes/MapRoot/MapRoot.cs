@@ -30,6 +30,10 @@ public partial class MapRoot : MapRootUI
 
     generateButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
+    generateImageButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateImageButton)));
+    generateImageDialog.Connect(
+      FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveFile)));
 
     mapCamera = new(GetNode<Control>("MainUI/C/H/B"));
     AddChild(mapCamera);
@@ -39,6 +43,30 @@ public partial class MapRoot : MapRootUI
   }
 
   public void PressedGenerateButton()
+  {
+    MapGenerator mapGenerator = GetMapGenerator();
+    mapGenerator.FillTileMapWithNoise(
+      tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
+
+    Logger.Log("Generation finished");
+  }
+
+  public void PressedGenerateImageButton()
+    => generateImageDialog.Show();
+
+  public void SelectedSaveFile(string filePath)
+  {
+    filePath += ".png";
+    int width = SanitizeIntField(mapWidth);
+    int height = SanitizeIntField(mapHeight);
+
+    MapGenerator mapGenerator = GetMapGenerator();
+    mapGenerator.CreateImageInPath(filePath, width, height);
+
+    Logger.Log("Saved image to: " + filePath);
+  }
+
+  private MapGenerator GetMapGenerator()
   {
     TileNoise[] tileNoises = new TileNoise[] {
       new(0f, tileDatabase.GetEntry(TileDatabase.TileType.WATER)),
@@ -55,11 +83,11 @@ public partial class MapRoot : MapRootUI
     FastNoiseLite fastNoiseLite = new()
     {
       NoiseType = SanitizeEnum<NoiseTypeEnum>(noiseType),
-      CellularDistanceFunction = SanitizeEnum<CellularDistanceFunctionEnum>(noiseDistance),
-      CellularReturnType = SanitizeEnum<CellularReturnTypeEnum>(noiseReturn),
-      DomainWarpType = SanitizeEnum<DomainWarpTypeEnum>(noiseDomainWarp),
-      DomainWarpFractalType = SanitizeEnum<DomainWarpFractalTypeEnum>(noiseDomainFractal),
-      FractalType = SanitizeEnum<FractalTypeEnum>(noiseFractal),
+      CellularDistanceFunction = SanitizeEnum<CellularDistanceFunctionEnum>(cellularDistance),
+      CellularReturnType = SanitizeEnum<CellularReturnTypeEnum>(cellularReturn),
+      DomainWarpType = SanitizeEnum<DomainWarpTypeEnum>(domainWarp),
+      DomainWarpFractalType = SanitizeEnum<DomainWarpFractalTypeEnum>(domainFractal),
+      FractalType = SanitizeEnum<FractalTypeEnum>(fractal),
       Seed = SanitizeIntField(noiseSeed),
       FractalOctaves = SanitizeIntField(fractalOctaves),
       FractalLacunarity = SanitizeFloatField(fractalLacunarity),
@@ -75,10 +103,7 @@ public partial class MapRoot : MapRootUI
       DomainWarpFrequency = SanitizeFloatField(domainFrequency),
     };
 
-    MapGenerator mapGenerator = new(fastNoiseLite, tileNoiseRange);
-    mapGenerator.FillTileMapWithNoise(
-      tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
-    Logger.Log("Generation finished");
+    return new MapGenerator(fastNoiseLite, tileNoiseRange);
   }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
