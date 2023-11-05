@@ -7,6 +7,8 @@ namespace ProceduralGeneration;
 
 public partial class MapRootUI : Node2D
 {
+  protected Control TileContainer;
+
   protected LineEdit mapWidth;
   protected LineEdit mapHeight;
 
@@ -38,6 +40,8 @@ public partial class MapRootUI : Node2D
 
   protected void InitializeUI()
   {
+    TileContainer = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Tiles/V/TileContainer");
+
     mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Width/LineEdit");
     mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Height/LineEdit");
 

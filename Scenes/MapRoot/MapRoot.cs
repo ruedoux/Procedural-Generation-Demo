@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
@@ -9,20 +10,9 @@ namespace ProceduralGeneration;
 public partial class MapRoot : MapRootUI
 {
   private MapCamera mapCamera;
+  private TileMap tileMap;
 
-  private readonly TileDatabase tileDatabase = new();
-  private readonly TileMap tileMap;
   private readonly Vector2I tileSize = new(2, 2);
-
-
-  public MapRoot()
-  {
-    Color[] colors = tileDatabase.entries
-      .OrderBy(keyPair => (int)keyPair.Key)
-      .Select(keyPair => keyPair.Value.color).ToArray();
-
-    tileMap = ProceduralTileMapCreator.GenerateTileMap(tileSize, colors);
-  }
 
   public override void _Ready()
   {
@@ -37,14 +27,16 @@ public partial class MapRoot : MapRootUI
 
     mapCamera = new(GetNode<Control>("MainUI/C/H/B"));
     AddChild(mapCamera);
-    AddChild(tileMap);
 
-    PressedGenerateButton();
+    //PressedGenerateButton();
   }
 
   public void PressedGenerateButton()
   {
-    MapGenerator mapGenerator = GetMapGenerator();
+    TileNoise[] tileNoises = GetTileNoises();
+    ReplaceTileMap(tileNoises);
+
+    MapGenerator mapGenerator = GetMapGenerator(tileNoises);
     mapGenerator.FillTileMapWithNoise(
       tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
 
@@ -60,26 +52,41 @@ public partial class MapRoot : MapRootUI
     int width = SanitizeIntField(mapWidth);
     int height = SanitizeIntField(mapHeight);
 
-    MapGenerator mapGenerator = GetMapGenerator();
+    MapGenerator mapGenerator = GetMapGenerator(GetTileNoises());
     mapGenerator.CreateImageInPath(filePath, width, height);
 
     Logger.Log("Saved image to: " + filePath);
   }
 
-  private MapGenerator GetMapGenerator()
+  private TileNoise[] GetTileNoises()
   {
-    TileNoise[] tileNoises = new TileNoise[] {
-      new(0f, tileDatabase.GetEntry(TileDatabase.TileType.WATER)),
-      new(0.1f, tileDatabase.GetEntry(TileDatabase.TileType.SAND)),
-      new(0.6f, tileDatabase.GetEntry(TileDatabase.TileType.GRASS)),
-      new(0.9f, tileDatabase.GetEntry(TileDatabase.TileType.FOREST)),
-      new(0.95f, tileDatabase.GetEntry(TileDatabase.TileType.STONE)),
-      new(1.0f, tileDatabase.GetEntry(TileDatabase.TileType.SNOW)),
-    };
+    List<TileNoise> tileNoises = new();
 
-    TileNoiseRange tileNoiseRange = new(
-      tileNoises, tileDatabase.GetEntry(TileDatabase.TileType.NONE));
+    var TileContainerTiles = TileContainer.GetChildren();
+    for (int i = 0; i < TileContainerTiles.Count; i++)
+    {
+      var TileUI = (HBoxContainer)TileContainerTiles[i];
+      float value = SanitizeFloatField(TileUI.GetNode<LineEdit>("Value/LineEdit"));
+      Color color = TileUI.GetNode<ColorPickerButton>("PickColor").GetPicker().Color;
+      tileNoises.Add(new(value, new(i, color)));
+    }
 
+    return tileNoises.ToArray();
+  }
+
+  private void ReplaceTileMap(TileNoise[] tileNoises)
+  {
+    List<Color> colors = new();
+    foreach (TileNoise tileNoise in tileNoises)
+      colors.Add(tileNoise.tile.color);
+
+    tileMap?.QueueFree();
+    tileMap = ProceduralTileMapCreator.GenerateTileMap(tileSize, colors.ToArray());
+    AddChild(tileMap);
+  }
+
+  private MapGenerator GetMapGenerator(TileNoise[] tileNoises)
+  {
     FastNoiseLite fastNoiseLite = new()
     {
       NoiseType = SanitizeEnum<NoiseTypeEnum>(noiseType),
@@ -103,7 +110,7 @@ public partial class MapRoot : MapRootUI
       DomainWarpFrequency = SanitizeFloatField(domainFrequency),
     };
 
-    return new MapGenerator(fastNoiseLite, tileNoiseRange);
+    return new MapGenerator(fastNoiseLite, new(tileNoises.ToArray(), new(-1, Colors.Azure)));
   }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum

@@ -66,7 +66,7 @@ size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 10
 
 [node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Size"]
 layout_mode = 2
@@ -115,6 +115,31 @@ size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "100"
+
+[node name="Tiles" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Tiles"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Tiles/V"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+theme_override_font_sizes/font_size = 20
+text = "Tiles"
+horizontal_alignment = 1
+
+[node name="TileContainer" type="VBoxContainer" parent="C/H/B/P/V/S/V/Tiles/V"]
+layout_mode = 2
+
+[node name="AddTile" type="Button" parent="C/H/B/P/V/S/V/Tiles/V"]
+layout_mode = 2
+text = "Add Tile"
 
 [node name="Noise" type="MarginContainer" parent="C/H/B/P/V/S/V"]
 layout_mode = 2
@@ -510,4 +535,5 @@ access = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
+[connection signal="pressed" from="C/H/B/P/V/S/V/Tiles/V/AddTile" to="." method="_on_add_tile_pressed"]
 [connection signal="pressed" from="C/H/B/P/V/S/V/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]

@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2jb3jmejoru7"]
+
+[ext_resource type="Script" path="res://Scenes/MapRoot/TileUI/TileUI.gd" id="1_8cnhg"]
+[ext_resource type="FontFile" uid="uid://claurx63ly4k3" path="res://Resources/Fonts/SpaceMono-Regular.ttf" id="2_h2wpt"]
+
+[node name="Tile" type="HBoxContainer"]
+theme_override_constants/separation = 10
+script = ExtResource("1_8cnhg")
+
+[node name="Value" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Value"]
+layout_mode = 2
+text = "Value:"
+
+[node name="LineEdit" type="LineEdit" parent="Value"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_h2wpt")
+text = "1.0"
+
+[node name="PickColor" type="ColorPickerButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Pick "
+edit_alpha = false
+
+[node name="Remove" type="Button" parent="."]
+layout_mode = 2
+text = " - "
+
+[connection signal="picker_created" from="PickColor" to="." method="_on_pick_color_picker_created"]
+[connection signal="pressed" from="Remove" to="." method="_on_remove_pressed"]
