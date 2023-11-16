@@ -1,23 +1,31 @@
+using System;
 using Godot;
 
 namespace ProceduralGeneration;
 
 public partial class MapGenerator
 {
+  private readonly Func<Vector3I, float, float> noiseFilter;
   private readonly FastNoiseLite fastNoiseLite;
   private readonly TileNoiseRange tileNoiseRange;
 
   public MapGenerator(
     FastNoiseLite fastNoiseLite,
-    TileNoiseRange tileNoiseRange)
+    TileNoiseRange tileNoiseRange,
+    Func<Vector3I, float, float> noiseFilter = null)
   {
     this.fastNoiseLite = fastNoiseLite;
     this.tileNoiseRange = tileNoiseRange;
+    this.noiseFilter = noiseFilter;
   }
 
   public virtual Tile GetTileOnPosition(Vector3I vec)
   {
-    return tileNoiseRange.GetTileByNoise(fastNoiseLite.GetNoise3Dv(vec));
+    float noise = fastNoiseLite.GetNoise3Dv(vec);
+    if (noiseFilter != null)
+      noise = noiseFilter(vec, noise);
+
+    return tileNoiseRange.GetTileByNoise(noise);
   }
 
   public void FillTileMapWithNoise(TileMap tileMap, int width, int height)

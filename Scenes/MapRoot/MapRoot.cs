@@ -110,7 +110,8 @@ public partial class MapRoot : MapRootUI
       DomainWarpFrequency = SanitizeFloatField(domainFrequency),
     };
 
-    return new MapGenerator(fastNoiseLite, new(tileNoises.ToArray(), new(-1, Colors.Azure)));
+    return new MapGenerator(
+      fastNoiseLite, new(tileNoises.ToArray(), new(-1, Colors.Azure)));
   }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
