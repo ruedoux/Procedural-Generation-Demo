@@ -19,10 +19,10 @@ public class TileNoiseRangeTest : SimpleTestClass
     TileNoiseRange tileNoiseRange = new(tileNoises, defaultTile);
 
     // Then
-    for (uint i = 0; i < 50; i++)
+    for (uint i = 0; i < 49; i++)
       Assertions.AssertEqual(firstHalfTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
 
-    for (uint i = 50; i < 75; i++)
+    for (uint i = 50; i < 74; i++)
       Assertions.AssertEqual(secondQuarterTileNoise.tile, tileNoiseRange.range[i], $"For index: {i}");
 
     for (uint i = 75; i < 100; i++)

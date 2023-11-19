@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 
 namespace ProceduralGeneration;
 
@@ -18,15 +19,21 @@ public partial class TileNoiseRange
 
     uint index = 0;
     foreach (TileNoise tileNoise in orderedRanges)
-      for (; index <= NoiseToIndex(tileNoise.noiseMarker); index++)
+    {
+      for (; index < NoiseToIndex(tileNoise.noiseMarker); index++)
         range[index] = tileNoise.tile;
+      if (tileNoise.noiseMarker == 1.0f)
+        range[RANGE_SIZE - 1] = tileNoise.tile;
+    }
+
   }
 
   public Tile GetTileByNoise(float noise)
-  {
-    return range[NoiseToIndex(noise)];
-  }
+    => range[NoiseToIndex(noise)];
 
   private static uint NoiseToIndex(float noise)
-    => Math.Clamp((uint)((noise + 1f) * 100 / 2), 0, RANGE_SIZE - 1);
+  {
+    noise = Math.Clamp(noise, -1.0f, 1.0f);
+    return (uint)((noise + 1f) * (RANGE_SIZE - 1) / 2);
+  }
 }

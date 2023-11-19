@@ -5,25 +5,25 @@ namespace ProceduralGeneration;
 
 public partial class MapGenerator
 {
-  private readonly Func<Vector3I, float, float> noiseFilter;
+  private readonly MapFilter mapFilter;
   private readonly FastNoiseLite fastNoiseLite;
   private readonly TileNoiseRange tileNoiseRange;
 
   public MapGenerator(
     FastNoiseLite fastNoiseLite,
     TileNoiseRange tileNoiseRange,
-    Func<Vector3I, float, float> noiseFilter = null)
+    MapFilter mapFilter = null)
   {
     this.fastNoiseLite = fastNoiseLite;
     this.tileNoiseRange = tileNoiseRange;
-    this.noiseFilter = noiseFilter;
+    this.mapFilter = mapFilter;
   }
 
   public virtual Tile GetTileOnPosition(Vector3I vec)
   {
     float noise = fastNoiseLite.GetNoise3Dv(vec);
-    if (noiseFilter != null)
-      noise = noiseFilter(vec, noise);
+    if (mapFilter != null)
+      noise = mapFilter.Filter(vec, noise);
 
     return tileNoiseRange.GetTileByNoise(noise);
   }

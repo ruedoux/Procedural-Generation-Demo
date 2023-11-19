@@ -111,8 +111,13 @@ public partial class MapRoot : MapRootUI
     };
 
     return new MapGenerator(
-      fastNoiseLite, new(tileNoises.ToArray(), new(-1, Colors.Azure)));
+      fastNoiseLite,
+      new(tileNoises.ToArray(), new(-1, Colors.Red)),
+      new IslandFilter(GetMapSize(), 0.3f, 50));
   }
+
+  private Vector3I GetMapSize()
+    => new(SanitizeIntField(mapWidth), SanitizeIntField(mapHeight), 0);
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
   {
