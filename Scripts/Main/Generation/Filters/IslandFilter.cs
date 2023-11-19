@@ -1,21 +1,27 @@
+using System;
 using Godot;
 
 namespace ProceduralGeneration;
 
 public class IslandFilter : MapFilter
 {
-  private readonly int filterStrenght;
-  public IslandFilter(Vector3I mapSize, float noiseBoost, int filterStrenght)
+  private readonly float filterStrenght;
+
+  public IslandFilter(Vector3I mapSize, float noiseBoost, float filterStrenght)
   : base(mapSize, noiseBoost)
   {
-    this.filterStrenght = filterStrenght;
+    this.filterStrenght = Math.Clamp(filterStrenght, 0f, 1f);
   }
 
   public override float Filter(Vector3 position, float noise)
   {
-    noise = base.Filter(position, noise);
-    Vector3 mapMiddle = mapSize / 2;
     float distanceToMiddle = mapMiddle.DistanceTo(position);
-    return noise - (distanceToMiddle / mapMiddle.X * (3 * (float)filterStrenght / 100));
+    return base.Filter(position, noise) - DistanceFromMiddleReduction(distanceToMiddle);
   }
+
+  private float DistanceFromMiddleReduction(float distanceToMiddle)
+    => GetDistancePercentage(distanceToMiddle) * 3 * filterStrenght;
+
+  private float GetDistancePercentage(float distanceToMiddle)
+    => distanceToMiddle / mapWidth;
 }

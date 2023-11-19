@@ -113,7 +113,7 @@ public partial class MapRoot : MapRootUI
     return new MapGenerator(
       fastNoiseLite,
       new(tileNoises.ToArray(), new(-1, Colors.Red)),
-      new IslandFilter(GetMapSize(), 0.3f, 50));
+      new IslandFilter(GetMapSize(), 0.5f, 1f));
   }
 
   private Vector3I GetMapSize()
