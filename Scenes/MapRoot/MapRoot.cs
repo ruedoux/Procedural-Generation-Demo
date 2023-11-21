@@ -111,9 +111,15 @@ public partial class MapRoot : MapRootUI
     };
 
     return new MapGenerator(
-      fastNoiseLite,
-      new(tileNoises.ToArray(), new(-1, Colors.Red)),
-      new IslandFilter(GetMapSize(), 0.5f, 1f));
+      fastNoiseLite, new(tileNoises.ToArray(), new(-1, Colors.Red)), GetMapFilter());
+  }
+
+  private MapFilter GetMapFilter()
+  {
+    FilterData.FilterType mapFilterType = SanitizeEnum<FilterData.FilterType>(filterType);
+    float strenght = SanitizeFloatField(filterStrenght);
+    float boost = SanitizeFloatField(filterBoost);
+    return FilterData.GetMapFilter(mapFilterType, GetMapSize(), boost, strenght);
   }
 
   private Vector3I GetMapSize()

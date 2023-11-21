@@ -13,6 +13,7 @@ public partial class MapRootUI : Node2D
   protected LineEdit mapHeight;
 
   protected Control optionMenu;
+  protected Control filterMenu;
   protected LineEdit noiseSeed;
   protected OptionButton noiseType;
   protected OptionButton cellularDistance;
@@ -20,6 +21,7 @@ public partial class MapRootUI : Node2D
   protected OptionButton domainWarp;
   protected OptionButton domainFractal;
   protected OptionButton fractal;
+  protected OptionButton filterType;
 
   protected LineEdit fractalGain;
   protected LineEdit fractalOctaves;
@@ -33,6 +35,8 @@ public partial class MapRootUI : Node2D
   protected LineEdit domainLacunarity;
   protected LineEdit domainOctaves;
   protected LineEdit domainFrequency;
+  protected LineEdit filterStrenght;
+  protected LineEdit filterBoost;
 
   protected Button generateButton;
   protected Button generateImageButton;
@@ -46,6 +50,7 @@ public partial class MapRootUI : Node2D
     mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Height/LineEdit");
 
     optionMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Noise/V");
+    filterMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Filter/V");
     noiseSeed = optionMenu.GetNode<LineEdit>("Seed/LineEdit");
     noiseType = optionMenu.GetNode<OptionButton>("NoiseType/OptionButton");
     cellularDistance = optionMenu.GetNode<OptionButton>("CellularDistance/OptionButton");
@@ -53,6 +58,7 @@ public partial class MapRootUI : Node2D
     domainWarp = optionMenu.GetNode<OptionButton>("DomainWarp/OptionButton");
     domainFractal = optionMenu.GetNode<OptionButton>("DomainFractal/OptionButton");
     fractal = optionMenu.GetNode<OptionButton>("Fractal/OptionButton");
+    filterType = filterMenu.GetNode<OptionButton>("Type/OptionButton");
 
     fractalGain = optionMenu.GetNode<LineEdit>("FractalGain/LineEdit");
     fractalOctaves = optionMenu.GetNode<LineEdit>("FractalOctaves/LineEdit");
@@ -66,6 +72,8 @@ public partial class MapRootUI : Node2D
     domainLacunarity = optionMenu.GetNode<LineEdit>("DomainLacunarity/LineEdit");
     domainOctaves = optionMenu.GetNode<LineEdit>("DomainOctaves/LineEdit");
     domainFrequency = optionMenu.GetNode<LineEdit>("DomainFrequency/LineEdit");
+    filterStrenght = filterMenu.GetNode<LineEdit>("Strenght/LineEdit");
+    filterBoost = filterMenu.GetNode<LineEdit>("Boost/LineEdit");
 
     generateButton = GetNode<Button>("MainUI/C/H/B/P/V/Generate/Button");
     generateImageButton = GetNode<Button>("MainUI/C/H/B/P/V/GenerateImage/Button");
@@ -77,6 +85,7 @@ public partial class MapRootUI : Node2D
     FillOptionWithEnum(domainWarp, DomainWarpTypeEnum.Simplex);
     FillOptionWithEnum(domainFractal, DomainWarpFractalTypeEnum.Progressive);
     FillOptionWithEnum(fractal, FractalTypeEnum.Fbm);
+    FillOptionWithEnum(filterType, FilterData.FilterType.None);
   }
 
   private static void FillOptionWithEnum<T>(

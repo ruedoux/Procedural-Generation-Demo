@@ -22,8 +22,7 @@ public partial class MapGenerator
   public virtual Tile GetTileOnPosition(Vector3I vec)
   {
     float noise = fastNoiseLite.GetNoise3Dv(vec);
-    if (mapFilter != null)
-      noise = mapFilter.Filter(vec, noise);
+    noise = mapFilter.Filter(vec, noise);
 
     return tileNoiseRange.GetTileByNoise(noise);
   }

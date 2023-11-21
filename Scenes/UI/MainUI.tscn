@@ -141,6 +141,81 @@ layout_mode = 2
 layout_mode = 2
 text = "Add Tile"
 
+[node name="Filter" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 10
+
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Filter"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+theme_override_font_sizes/font_size = 20
+text = "Filter"
+horizontal_alignment = 1
+
+[node name="Type" type="VBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Type"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Filter/V/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+
+[node name="Separator" type="Panel" parent="C/H/B/P/V/S/V/Filter/V"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mom1f")
+
+[node name="Strenght" type="HBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Strenght"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Filter Strenght    "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Filter/V/Strenght"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "0.0"
+
+[node name="Boost" type="HBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Boost"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "Filter Boost       "
+
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Filter/V/Boost"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.6
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_6l5sf")
+text = "0.0"
+
 [node name="Noise" type="MarginContainer" parent="C/H/B/P/V/S/V"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
