@@ -1,13 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://8tbvx74wj6nc"]
 
 [ext_resource type="Script" path="res://Scenes/UI/MainUI.gd" id="1_ybo3t"]
+[ext_resource type="PackedScene" uid="uid://cj84o5pjylokf" path="res://Scenes/UI/ElementContainer.tscn" id="2_5xejd"]
 [ext_resource type="FontFile" uid="uid://claurx63ly4k3" path="res://Resources/Fonts/SpaceMono-Regular.ttf" id="2_6l5sf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7ckc"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mom1f"]
-bg_color = Color(0.192157, 0.192157, 0.192157, 1)
 
 [node name="MainUI" type="CanvasLayer"]
 script = ExtResource("1_ybo3t")
@@ -53,6 +51,7 @@ grow_vertical = 2
 [node name="S" type="ScrollContainer" parent="C/H/B/P/V"]
 layout_mode = 2
 size_flags_vertical = 3
+horizontal_scroll_mode = 0
 
 [node name="V" type="VBoxContainer" parent="C/H/B/P/V/S"]
 layout_direction = 2
@@ -60,7 +59,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Size" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+[node name="SizeContainer" parent="C/H/B/P/V/S/V" instance=ExtResource("2_5xejd")]
+layout_mode = 2
+
+[node name="Size" type="MarginContainer" parent="C/H/B/P/V/S/V/SizeContainer/Container" index="0"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -68,28 +70,28 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Size"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Size/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Size"
 horizontal_alignment = 1
 
-[node name="Width" type="HBoxContainer" parent="C/H/B/P/V/S/V/Size/V"]
+[node name="Width" type="HBoxContainer" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Size/V/Width"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Width"]
 layout_mode = 2
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Width  "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Size/V/Width"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Width"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -97,18 +99,18 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "100"
 
-[node name="Height" type="HBoxContainer" parent="C/H/B/P/V/S/V/Size/V"]
+[node name="Height" type="HBoxContainer" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Size/V/Height"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Height"]
 layout_mode = 2
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Height "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Size/V/Height"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Height"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -116,7 +118,10 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "100"
 
-[node name="Tiles" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+[node name="TilesContainer" parent="C/H/B/P/V/S/V" instance=ExtResource("2_5xejd")]
+layout_mode = 2
+
+[node name="Tiles" type="MarginContainer" parent="C/H/B/P/V/S/V/TilesContainer/Container" index="0"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -124,24 +129,27 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Tiles"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/TilesContainer/Container/Tiles"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Tiles/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Tiles"
 horizontal_alignment = 1
 
-[node name="TileContainer" type="VBoxContainer" parent="C/H/B/P/V/S/V/Tiles/V"]
+[node name="TileContainer" type="VBoxContainer" parent="C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V"]
 layout_mode = 2
 
-[node name="AddTile" type="Button" parent="C/H/B/P/V/S/V/Tiles/V"]
+[node name="AddTile" type="Button" parent="C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V"]
 layout_mode = 2
 text = "Add Tile"
 
-[node name="Filter" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+[node name="FilterContainer" parent="C/H/B/P/V/S/V" instance=ExtResource("2_5xejd")]
+layout_mode = 2
+
+[node name="Filter" type="MarginContainer" parent="C/H/B/P/V/S/V/FilterContainer/Container" index="0"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -149,49 +157,44 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Filter"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Filter"
 horizontal_alignment = 1
 
-[node name="Type" type="VBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+[node name="Type" type="VBoxContainer" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Type"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Type"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Type"
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Filter/V/Type"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="Separator" type="Panel" parent="C/H/B/P/V/S/V/Filter/V"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mom1f")
-
-[node name="Strenght" type="HBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+[node name="Strenght" type="HBoxContainer" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Strenght"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Strenght"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Filter Strenght    "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Filter/V/Strenght"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Strenght"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -199,16 +202,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.0"
 
-[node name="Boost" type="HBoxContainer" parent="C/H/B/P/V/S/V/Filter/V"]
+[node name="Boost" type="HBoxContainer" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Filter/V/Boost"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Boost"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Filter Boost       "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Filter/V/Boost"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/FilterContainer/Container/Filter/V/Boost"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -216,7 +219,10 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.0"
 
-[node name="Noise" type="MarginContainer" parent="C/H/B/P/V/S/V"]
+[node name="NoiseContainer" parent="C/H/B/P/V/S/V" instance=ExtResource("2_5xejd")]
+layout_mode = 2
+
+[node name="Noise" type="MarginContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container" index="0"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -224,29 +230,29 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise"]
+[node name="V" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 theme_override_font_sizes/font_size = 20
 text = "Noise"
 horizontal_alignment = 1
 
-[node name="Seed" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="Seed" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/Seed"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Seed"]
 layout_mode = 2
 size_flags_vertical = 1
 size_flags_stretch_ratio = 0.2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Seed    "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/Seed"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Seed"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -254,129 +260,119 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "123"
 
-[node name="Button" type="Button" parent="C/H/B/P/V/S/V/Noise/V/Seed"]
+[node name="Button" type="Button" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Seed"]
 layout_mode = 2
 focus_mode = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Random"
 
-[node name="Separator" type="Panel" parent="C/H/B/P/V/S/V/Noise/V"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mom1f")
-
-[node name="NoiseType" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="NoiseType" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/NoiseType"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/NoiseType"]
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Noise Type       "
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/NoiseType"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/NoiseType"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="CellularDistance" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="CellularDistance" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/CellularDistance"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularDistance"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Cellular Distance"
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/CellularDistance"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularDistance"]
 layout_mode = 2
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="CellularReturn" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="CellularReturn" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/CellularReturn"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularReturn"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Cellular Return  "
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/CellularReturn"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularReturn"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="DomainWarp" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainWarp" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainWarp"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainWarp"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Warp"
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/DomainWarp"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainWarp"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="DomainFractal" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainFractal" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainFractal"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainFractal"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Fractal"
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/DomainFractal"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainFractal"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="Fractal" type="VBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="Fractal" type="VBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/Fractal"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Type"
 
-[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/Noise/V/Fractal"]
+[node name="OptionButton" type="OptionButton" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 
-[node name="Separator2" type="Panel" parent="C/H/B/P/V/S/V/Noise/V"]
-custom_minimum_size = Vector2(0, 5)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_mom1f")
-
-[node name="FractalGain" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="FractalGain" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/FractalGain"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalGain"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Gain       "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/FractalGain"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalGain"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -384,16 +380,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.5"
 
-[node name="FractalOctaves" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="FractalOctaves" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/FractalOctaves"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalOctaves"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Octaves    "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/FractalOctaves"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalOctaves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -401,16 +397,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "1"
 
-[node name="FractalLacunarity" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="FractalLacunarity" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/FractalLacunarity"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalLacunarity"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Lacunarity "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/FractalLacunarity"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalLacunarity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -418,16 +414,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "1"
 
-[node name="FractalStrenght" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="FractalStrenght" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/FractalStrenght"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalStrenght"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Strenght   "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/FractalStrenght"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalStrenght"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -435,16 +431,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0"
 
-[node name="FractalPingPong" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="FractalPingPong" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/FractalPingPong"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalPingPong"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Fractal Ping Pong  "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/FractalPingPong"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/FractalPingPong"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -452,16 +448,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0"
 
-[node name="Frequency" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="Frequency" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/Frequency"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Frequency"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Freqency           "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/Frequency"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Frequency"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -469,16 +465,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.01"
 
-[node name="DomainAmplitude" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainAmplitude" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainAmplitude"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainAmplitude"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Amplitude   "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/DomainAmplitude"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainAmplitude"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -486,16 +482,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "30"
 
-[node name="DomainGain" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainGain" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainGain"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainGain"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Gain        "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/DomainGain"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainGain"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -503,16 +499,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.5"
 
-[node name="DomainLacunarity" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainLacunarity" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainLacunarity"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainLacunarity"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Lacunarity  "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/DomainLacunarity"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainLacunarity"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -520,16 +516,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "6"
 
-[node name="DomainOctaves" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainOctaves" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainOctaves"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainOctaves"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Octaves     "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/DomainOctaves"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainOctaves"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -537,16 +533,16 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "5"
 
-[node name="DomainFrequency" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="DomainFrequency" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/DomainFrequency"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainFrequency"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Domain Frequency   "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/DomainFrequency"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/DomainFrequency"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
@@ -554,22 +550,26 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.05"
 
-[node name="CellularJitter" type="HBoxContainer" parent="C/H/B/P/V/S/V/Noise/V"]
+[node name="CellularJitter" type="HBoxContainer" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="C/H/B/P/V/S/V/Noise/V/CellularJitter"]
+[node name="Label" type="Label" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularJitter"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "Cellular Jitter    "
 
-[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/Noise/V/CellularJitter"]
+[node name="LineEdit" type="LineEdit" parent="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/CellularJitter"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.45"
+
+[node name="Panel" type="Panel" parent="C/H/B/P/V"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
 
 [node name="Generate" type="MarginContainer" parent="C/H/B/P/V"]
 layout_mode = 2
@@ -606,9 +606,18 @@ always_on_top = true
 ok_button_text = "Save"
 access = 2
 
+[node name="Panel2" type="Panel" parent="C/H/B/P/V"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
 [node name="Null" type="BoxContainer" parent="C/H"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[connection signal="pressed" from="C/H/B/P/V/S/V/Tiles/V/AddTile" to="." method="_on_add_tile_pressed"]
-[connection signal="pressed" from="C/H/B/P/V/S/V/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]
+[connection signal="pressed" from="C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V/AddTile" to="." method="_on_add_tile_pressed"]
+[connection signal="pressed" from="C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]
+
+[editable path="C/H/B/P/V/S/V/SizeContainer"]
+[editable path="C/H/B/P/V/S/V/TilesContainer"]
+[editable path="C/H/B/P/V/S/V/FilterContainer"]
+[editable path="C/H/B/P/V/S/V/NoiseContainer"]

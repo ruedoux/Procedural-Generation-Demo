@@ -44,13 +44,13 @@ public partial class MapRootUI : Node2D
 
   protected void InitializeUI()
   {
-    TileContainer = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Tiles/V/TileContainer");
+    TileContainer = GetNode<Control>("MainUI/C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer");
 
-    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Width/LineEdit");
-    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/Size/V/Height/LineEdit");
+    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Width/LineEdit");
+    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Height/LineEdit");
 
-    optionMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Noise/V");
-    filterMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/Filter/V");
+    optionMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V");
+    filterMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/FilterContainer/Container/Filter/V");
     noiseSeed = optionMenu.GetNode<LineEdit>("Seed/LineEdit");
     noiseType = optionMenu.GetNode<OptionButton>("NoiseType/OptionButton");
     cellularDistance = optionMenu.GetNode<OptionButton>("CellularDistance/OptionButton");

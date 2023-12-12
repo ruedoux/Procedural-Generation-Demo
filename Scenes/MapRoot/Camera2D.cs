@@ -1,14 +1,15 @@
-using Godot;
 using System;
+using Godot;
 
 namespace ProceduralGeneration;
 
 public partial class MapCamera : Camera2D
 {
-  Control UI;
-  float maxZoom;
-  float minZoom;
+  private Control UI;
+  private float maxZoom;
+  private float minZoom;
 
+  public Vector2 maxCameraPosition = Vector2.Zero;
   public float zoomValue = 0.05f;
 
   public MapCamera(Control UI, float maxZoom = 8.0f, float minZoom = 0.5f)
@@ -17,6 +18,7 @@ public partial class MapCamera : Camera2D
     this.maxZoom = maxZoom;
     this.minZoom = minZoom;
   }
+
 
   public override void _Input(InputEvent inputEvent)
   {
@@ -38,7 +40,12 @@ public partial class MapCamera : Camera2D
 
   private void MoveCamera(Vector2 direction)
   {
-    Position += direction;
+    Vector2 finalPosition = GlobalPosition + direction;
+
+    finalPosition.X = Math.Clamp(finalPosition.X, 0, maxCameraPosition.X);
+    finalPosition.Y = Math.Clamp(finalPosition.Y, 0, maxCameraPosition.Y);
+
+    GlobalPosition = finalPosition;
   }
 
   private void ZoomCamera(float value)
@@ -49,9 +56,6 @@ public partial class MapCamera : Camera2D
       return;
     Zoom = new Vector2(Zoom.X + value, Zoom.Y + value);
   }
-
-  //static func is_mouse_on_ui(element:Control) -> bool:
-  //  return element.get_global_rect().has_point(element.get_global_mouse_position())
 
   private static bool IsMouseOnUI(Control element)
     => element.GetGlobalRect().HasPoint(element.GetGlobalMousePosition());

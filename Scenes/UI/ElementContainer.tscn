@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj84o5pjylokf"]
+
+[ext_resource type="Script" path="res://Scenes/UI/ElementContainer.gd" id="1_vebfr"]
+
+[node name="ElementContainer" type="VBoxContainer"]
+script = ExtResource("1_vebfr")
+
+[node name="Upper" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="."]
+layout_mode = 2
+text = "Show"
+
+[node name="Container" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="Lower" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[connection signal="toggled" from="CheckBox" to="." method="_on_check_box_toggled"]

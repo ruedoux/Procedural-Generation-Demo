@@ -2,8 +2,10 @@ extends CanvasLayer
 
 const TileScene = preload("res://Scenes/MapRoot/TileUI/TileUI.tscn")
 
-@onready var noiseSeed: LineEdit = $C/H/B/P/V/S/V/Noise/V/Seed/LineEdit
-@onready var TileContainer: VBoxContainer = $C/H/B/P/V/S/V/Tiles/V/TileContainer
+@onready var noiseSeed: LineEdit = $C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V/Seed/LineEdit
+
+@onready
+var TileContainer: VBoxContainer = $C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer
 
 
 func _ready() -> void:

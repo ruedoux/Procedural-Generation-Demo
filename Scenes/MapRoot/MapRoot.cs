@@ -27,8 +27,6 @@ public partial class MapRoot : MapRootUI
 
     mapCamera = new(GetNode<Control>("MainUI/C/H/B"));
     AddChild(mapCamera);
-
-    //PressedGenerateButton();
   }
 
   public void PressedGenerateButton()
@@ -39,6 +37,9 @@ public partial class MapRoot : MapRootUI
     MapGenerator mapGenerator = GetMapGenerator(tileNoises);
     mapGenerator.FillTileMapWithNoise(
       tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
+
+    mapCamera.maxCameraPosition = new Vector2(
+      SanitizeIntField(mapWidth) * tileSize.X, SanitizeIntField(mapHeight) * tileSize.Y);
 
     Logger.Log("Generation finished");
   }
