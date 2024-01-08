@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 using static Godot.FastNoiseLite;
@@ -44,13 +45,13 @@ public partial class MapRootUI : Node2D
 
   protected void InitializeUI()
   {
-    TileContainer = GetNode<Control>("MainUI/C/H/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer");
+    TileContainer = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer");
 
-    mapWidth = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Width/LineEdit");
-    mapHeight = GetNode<LineEdit>("MainUI/C/H/B/P/V/S/V/SizeContainer/Container/Size/V/Height/LineEdit");
+    mapWidth = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/V/S/V/SizeContainer/Container/Size/V/Width/LineEdit");
+    mapHeight = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/V/S/V/SizeContainer/Container/Size/V/Height/LineEdit");
 
-    optionMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/NoiseContainer/Container/Noise/V");
-    filterMenu = GetNode<Control>("MainUI/C/H/B/P/V/S/V/FilterContainer/Container/Filter/V");
+    optionMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/V/S/V/NoiseContainer/Container/Noise/V");
+    filterMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/V/S/V/FilterContainer/Container/Filter/V");
     noiseSeed = optionMenu.GetNode<LineEdit>("Seed/LineEdit");
     noiseType = optionMenu.GetNode<OptionButton>("NoiseType/OptionButton");
     cellularDistance = optionMenu.GetNode<OptionButton>("CellularDistance/OptionButton");
@@ -75,9 +76,9 @@ public partial class MapRootUI : Node2D
     filterStrenght = filterMenu.GetNode<LineEdit>("Strenght/LineEdit");
     filterBoost = filterMenu.GetNode<LineEdit>("Boost/LineEdit");
 
-    generateButton = GetNode<Button>("MainUI/C/H/B/P/V/Generate/Button");
-    generateImageButton = GetNode<Button>("MainUI/C/H/B/P/V/GenerateImage/Button");
-    generateImageDialog = GetNode<FileDialog>("MainUI/C/H/B/P/V/GenerateImage/FileDialog");
+    generateButton = GetNode<Button>("MainUI/C/H/ButtonPanel/H/P/H/Generate/Button");
+    generateImageButton = GetNode<Button>("MainUI/C/H/ButtonPanel/H/P/H/GenerateImage/Button");
+    generateImageDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/H/P/H/GenerateImage/FileDialog");
 
     FillOptionWithEnum(noiseType, NoiseTypeEnum.SimplexSmooth);
     FillOptionWithEnum(cellularDistance, CellularDistanceFunctionEnum.Euclidean);
@@ -88,11 +89,82 @@ public partial class MapRootUI : Node2D
     FillOptionWithEnum(filterType, FilterData.FilterType.None);
   }
 
-  private static void FillOptionWithEnum<T>(
+  protected TileNoise[] GetTileNoises()
+  {
+    List<TileNoise> tileNoises = new();
+
+    var TileContainerTiles = TileContainer.GetChildren();
+    for (int i = 0; i < TileContainerTiles.Count; i++)
+    {
+      var TileUI = (HBoxContainer)TileContainerTiles[i];
+      float value = SanitizeFloatField(TileUI.GetNode<LineEdit>("Value/LineEdit"));
+      Color color = TileUI.GetNode<ColorPickerButton>("PickColor").GetPicker().Color;
+      tileNoises.Add(new(value, new(i, color)));
+    }
+
+    return tileNoises.ToArray();
+  }
+
+
+  protected GenerationSettings GetGenerationSettings()
+  {
+    return new()
+    {
+      tileNoises = GetTileNoises(),
+      mapSize = GetMapSize(),
+      noiseType = SanitizeEnum<NoiseTypeEnum>(noiseType),
+      cellularDistanceFunction = SanitizeEnum<CellularDistanceFunctionEnum>(cellularDistance),
+      cellularReturnType = SanitizeEnum<CellularReturnTypeEnum>(cellularReturn),
+      domainWarpType = SanitizeEnum<DomainWarpTypeEnum>(domainWarp),
+      domainWarpFractalType = SanitizeEnum<DomainWarpFractalTypeEnum>(domainFractal),
+      fractalType = SanitizeEnum<FractalTypeEnum>(fractal),
+      seed = SanitizeIntField(noiseSeed),
+      fractalOctaves = SanitizeIntField(fractalOctaves),
+      fractalLacunarity = SanitizeFloatField(fractalLacunarity),
+      frequency = SanitizeFloatField(noiseFrequency),
+      cellularJitter = SanitizeFloatField(cellularJitter),
+      fractalWeightedStrength = SanitizeFloatField(fractalStrenght),
+      fractalPingPongStrength = SanitizeFloatField(fractalPingPong),
+      fractalGain = SanitizeFloatField(fractalGain),
+      domainWarpAmplitude = SanitizeFloatField(domainAmplitude),
+      domainWarpFractalGain = SanitizeFloatField(domainGain),
+      domainWarpFractalLacunarity = SanitizeFloatField(domainLacunarity),
+      domainWarpFractalOctaves = SanitizeIntField(domainOctaves),
+      domainWarpFrequency = SanitizeFloatField(domainFrequency)
+    };
+  }
+
+
+  protected static void FillOptionWithEnum<T>(
     OptionButton enumOptionButton, T defaultValue) where T : Enum
   {
     foreach (var noise in Enum.GetValues(typeof(T)))
       enumOptionButton.AddItem(noise.ToString());
     enumOptionButton.Select(Convert.ToInt32(defaultValue));
+  }
+
+  protected Vector3I GetMapSize()
+    => new(SanitizeIntField(mapWidth), SanitizeIntField(mapHeight), 0);
+
+
+  protected static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
+  {
+    T result = InputSanitizer.SanitizeEnum<T>(
+      enumOptionButton.GetItemText(enumOptionButton.GetSelectedId()));
+    return result;
+  }
+
+  protected static float SanitizeFloatField(LineEdit lineEdit)
+  {
+    float result = InputSanitizer.SanitizeFloat(lineEdit.Text);
+    lineEdit.Text = result.ToString();
+    return result;
+  }
+
+  protected static int SanitizeIntField(LineEdit lineEdit)
+  {
+    int result = InputSanitizer.SanitizeInt(lineEdit.Text);
+    lineEdit.Text = result.ToString();
+    return result;
   }
 }
