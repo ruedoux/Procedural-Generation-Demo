@@ -1,7 +1,6 @@
+using System;
 using System.Collections.Generic;
 using Godot;
-
-using static Godot.FastNoiseLite;
 
 namespace ProceduralGeneration;
 
@@ -21,8 +20,17 @@ public partial class MapRoot : MapRootUI
       Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
     saveImageButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedSaveImageButton)));
+    saveSettingsButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedSaveSettingsButton)));
+    loadSettingsButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedLoadSettingsButton)));
+
     saveImageDialog.Connect(
-      FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveFile)));
+      FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveImageFile)));
+    saveSettingsDialog.Connect(
+      FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveSettingsFile)));
+    loadSettingsDialog.Connect(
+      FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedLoadSettingsFile)));
 
     mapCamera = new(GetNode<Control>("MainUI/C/H/ButtonPanel/Null"));
     AddChild(mapCamera);
@@ -33,10 +41,10 @@ public partial class MapRoot : MapRootUI
   {
     ReplaceTileMap();
     GetMapGenerator().FillTileMapWithNoise(
-      tileMap, SanitizeIntField(mapWidth), SanitizeIntField(mapHeight));
+      tileMap, SanitizeIntField(mapWidthLineEdit), SanitizeIntField(mapHeightLineEdit));
 
     mapCamera.maxCameraPosition = new Vector2(
-      SanitizeIntField(mapWidth) * tileSize.X, SanitizeIntField(mapHeight) * tileSize.Y);
+      SanitizeIntField(mapWidthLineEdit) * tileSize.X, SanitizeIntField(mapHeightLineEdit) * tileSize.Y);
 
     Logger.Log("Generation finished");
   }
@@ -45,17 +53,43 @@ public partial class MapRoot : MapRootUI
   public void PressedSaveImageButton()
     => saveImageDialog.Show();
 
+  public void PressedSaveSettingsButton()
+    => saveSettingsDialog.Show();
 
-  public void SelectedSaveFile(string filePath)
+  public void PressedLoadSettingsButton()
+    => loadSettingsDialog.Show();
+
+
+  public void SelectedSaveImageFile(string filePath)
   {
     filePath += ".png";
-    int width = SanitizeIntField(mapWidth);
-    int height = SanitizeIntField(mapHeight);
+    int width = SanitizeIntField(mapWidthLineEdit);
+    int height = SanitizeIntField(mapHeightLineEdit);
 
     MapGenerator mapGenerator = GetMapGenerator();
     mapGenerator.CreateImageInPath(filePath, width, height);
 
     Logger.Log("Saved image to: " + filePath);
+  }
+
+  public void SelectedSaveSettingsFile(string filePath)
+  {
+    filePath += ".settings";
+    GetGenerationSettings().SaveInPath(filePath);
+    Logger.Log("Saved settings to: " + filePath);
+  }
+
+  public void SelectedLoadSettingsFile(string filePath)
+  {
+    try
+    {
+      LoadSettings(new GenerationSettings().LoadFromPath(filePath));
+      Logger.Log("Loaded settings from: " + filePath);
+    }
+    catch (Exception ex)
+    {
+      Logger.LogError(ex);
+    }
   }
 
 

@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+
+using System.IO;
 using Godot;
 using Newtonsoft.Json;
 using static Godot.FastNoiseLite;
@@ -58,5 +59,22 @@ public class GenerationSettings : JsonSerializable
       DomainWarpFractalOctaves = domainWarpFractalOctaves,
       DomainWarpFrequency = domainWarpFrequency,
     };
+  }
+
+  public void SaveInPath(string path)
+  {
+    using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Write);
+    file.StoreString(ToJsonString());
+  }
+
+  public GenerationSettings LoadFromPath(string path)
+  {
+    if (!Godot.FileAccess.FileExists(path))
+      throw new FileNotFoundException("Unable to find file: " + path);
+
+    using var file = Godot.FileAccess.Open(path, Godot.FileAccess.ModeFlags.Read);
+
+    string content = file.GetAsText();
+    return FromJsonString<GenerationSettings>(content);
   }
 }
