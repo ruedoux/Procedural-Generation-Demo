@@ -19,9 +19,9 @@ public partial class MapRoot : MapRootUI
 
     generateButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateButton)));
-    generateImageButton.Connect(
-      Button.SignalName.Pressed, new Callable(this, nameof(PressedGenerateImageButton)));
-    generateImageDialog.Connect(
+    saveImageButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedSaveImageButton)));
+    saveImageDialog.Connect(
       FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveFile)));
 
     mapCamera = new(GetNode<Control>("MainUI/C/H/ButtonPanel/Null"));
@@ -42,8 +42,8 @@ public partial class MapRoot : MapRootUI
   }
 
 
-  public void PressedGenerateImageButton()
-    => generateImageDialog.Show();
+  public void PressedSaveImageButton()
+    => saveImageDialog.Show();
 
 
   public void SelectedSaveFile(string filePath)

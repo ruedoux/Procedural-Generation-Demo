@@ -67,7 +67,7 @@ size_flags_vertical = 3
 focus_mode = 0
 text = "Generate"
 
-[node name="GenerateImage" type="MarginContainer" parent="C/H/ButtonPanel/H/P/H"]
+[node name="SaveImage" type="MarginContainer" parent="C/H/ButtonPanel/H/P/H"]
 layout_mode = 2
 size_flags_stretch_ratio = 0.1
 theme_override_constants/margin_left = 5
@@ -75,17 +75,62 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Button" type="Button" parent="C/H/ButtonPanel/H/P/H/GenerateImage"]
+[node name="Button" type="Button" parent="C/H/ButtonPanel/H/P/H/SaveImage"]
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 0
-text = "Generate Image"
+text = "Save Image"
 
-[node name="FileDialog" type="FileDialog" parent="C/H/ButtonPanel/H/P/H/GenerateImage"]
+[node name="FileDialog" type="FileDialog" parent="C/H/ButtonPanel/H/P/H/SaveImage"]
+initial_position = 2
+size = Vector2i(500, 400)
+always_on_top = true
+ok_button_text = "Save Image"
+access = 2
+
+[node name="SaveSettings" type="MarginContainer" parent="C/H/ButtonPanel/H/P/H"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="C/H/ButtonPanel/H/P/H/SaveSettings"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+text = "Save Settings"
+
+[node name="FileDialog" type="FileDialog" parent="C/H/ButtonPanel/H/P/H/SaveSettings"]
+title = "Save Settings"
 initial_position = 2
 size = Vector2i(500, 400)
 always_on_top = true
 ok_button_text = "Save"
+access = 2
+
+[node name="LoadSettings" type="MarginContainer" parent="C/H/ButtonPanel/H/P/H"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.1
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Button" type="Button" parent="C/H/ButtonPanel/H/P/H/LoadSettings"]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+text = "Load Settings"
+
+[node name="FileDialog" type="FileDialog" parent="C/H/ButtonPanel/H/P/H/LoadSettings"]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(500, 400)
+always_on_top = true
+ok_button_text = "Open"
+file_mode = 0
 access = 2
 
 [node name="OptionPanel" type="HBoxContainer" parent="C/H"]

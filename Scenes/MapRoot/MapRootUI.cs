@@ -8,7 +8,7 @@ namespace ProceduralGeneration;
 
 public partial class MapRootUI : Node2D
 {
-  protected Control TileContainer;
+  protected Control tileContainer;
 
   protected LineEdit mapWidth;
   protected LineEdit mapHeight;
@@ -40,12 +40,12 @@ public partial class MapRootUI : Node2D
   protected LineEdit filterBoost;
 
   protected Button generateButton;
-  protected Button generateImageButton;
-  protected FileDialog generateImageDialog;
+  protected Button saveImageButton;
+  protected FileDialog saveImageDialog;
 
   protected void InitializeUI()
   {
-    TileContainer = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer");
+    tileContainer = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/V/S/V/TilesContainer/Container/Tiles/V/TileContainer");
 
     mapWidth = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/V/S/V/SizeContainer/Container/Size/V/Width/LineEdit");
     mapHeight = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/V/S/V/SizeContainer/Container/Size/V/Height/LineEdit");
@@ -77,8 +77,8 @@ public partial class MapRootUI : Node2D
     filterBoost = filterMenu.GetNode<LineEdit>("Boost/LineEdit");
 
     generateButton = GetNode<Button>("MainUI/C/H/ButtonPanel/H/P/H/Generate/Button");
-    generateImageButton = GetNode<Button>("MainUI/C/H/ButtonPanel/H/P/H/GenerateImage/Button");
-    generateImageDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/H/P/H/GenerateImage/FileDialog");
+    saveImageButton = GetNode<Button>("MainUI/C/H/ButtonPanel/H/P/H/SaveImage/Button");
+    saveImageDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/H/P/H/SaveImage/FileDialog");
 
     FillOptionWithEnum(noiseType, NoiseTypeEnum.SimplexSmooth);
     FillOptionWithEnum(cellularDistance, CellularDistanceFunctionEnum.Euclidean);
@@ -93,10 +93,10 @@ public partial class MapRootUI : Node2D
   {
     List<TileNoise> tileNoises = new();
 
-    var TileContainerTiles = TileContainer.GetChildren();
-    for (int i = 0; i < TileContainerTiles.Count; i++)
+    var tileContainerTiles = tileContainer.GetChildren();
+    for (int i = 0; i < tileContainerTiles.Count; i++)
     {
-      var TileUI = (HBoxContainer)TileContainerTiles[i];
+      var TileUI = (HBoxContainer)tileContainerTiles[i];
       float value = SanitizeFloatField(TileUI.GetNode<LineEdit>("Value/LineEdit"));
       Color color = TileUI.GetNode<ColorPickerButton>("PickColor").GetPicker().Color;
       tileNoises.Add(new(value, new(i, color)));
