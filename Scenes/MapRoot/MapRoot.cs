@@ -40,11 +40,13 @@ public partial class MapRoot : MapRootUI
   public void PressedGenerateButton()
   {
     ReplaceTileMap();
+    GenerationSettings generationSettings = GetGenerationSettings();
     GetMapGenerator().FillTileMapWithNoise(
-      tileMap, SanitizeIntField(mapWidthLineEdit), SanitizeIntField(mapHeightLineEdit));
+      tileMap, generationSettings.mapSize.X, generationSettings.mapSize.Y);
 
     mapCamera.maxCameraPosition = new Vector2(
-      SanitizeIntField(mapWidthLineEdit) * tileSize.X, SanitizeIntField(mapHeightLineEdit) * tileSize.Y);
+      generationSettings.mapSize.X * tileSize.X,
+      generationSettings.mapSize.Y * tileSize.Y);
 
     Logger.Log("Generation finished");
   }
@@ -62,12 +64,12 @@ public partial class MapRoot : MapRootUI
 
   public void SelectedSaveImageFile(string filePath)
   {
+    GenerationSettings generationSettings = GetGenerationSettings();
     filePath += ".png";
-    int width = SanitizeIntField(mapWidthLineEdit);
-    int height = SanitizeIntField(mapHeightLineEdit);
 
     MapGenerator mapGenerator = GetMapGenerator();
-    mapGenerator.CreateImageInPath(filePath, width, height);
+    mapGenerator.CreateImageInPath(
+      filePath, generationSettings.mapSize.X, generationSettings.mapSize.Y);
 
     Logger.Log("Saved image to: " + filePath);
   }
@@ -118,9 +120,11 @@ public partial class MapRoot : MapRootUI
 
   private MapFilter GetMapFilter()
   {
-    FilterData.FilterType mapFilterType = SanitizeEnum<FilterData.FilterType>(filterType);
-    float strenght = SanitizeFloatField(filterStrenght);
-    float boost = SanitizeFloatField(filterBoost);
-    return FilterData.GetMapFilter(mapFilterType, GetMapSize(), boost, strenght);
+    GenerationSettings generationSettings = GetGenerationSettings();
+    return FilterData.GetMapFilter(
+      generationSettings.filterType,
+      GetMapSize(),
+      generationSettings.filterBoost,
+      generationSettings.filterStrength);
   }
 }

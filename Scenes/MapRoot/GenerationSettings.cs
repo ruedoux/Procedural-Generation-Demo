@@ -11,6 +11,10 @@ public class GenerationSettings : JsonSerializable
   [JsonProperty] public Vector3I mapSize;
   [JsonProperty] public TileNoise[] tileNoises;
 
+  [JsonProperty] public FilterData.FilterType filterType;
+  [JsonProperty] public float filterStrength;
+  [JsonProperty] public float filterBoost;
+
   [JsonProperty] public NoiseTypeEnum noiseType;
   [JsonProperty] public CellularDistanceFunctionEnum cellularDistanceFunction;
   [JsonProperty] public CellularReturnTypeEnum cellularReturnType;
