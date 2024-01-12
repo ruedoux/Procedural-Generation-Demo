@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using Godot;
 
 using static Godot.FastNoiseLite;
@@ -8,41 +10,45 @@ namespace ProceduralGeneration;
 
 public partial class MapRootUI : Node2D
 {
+  protected PackedScene tileScene = GD.Load<PackedScene>("res://Scenes/MapRoot/TileUI/TileUI.tscn");
+
   protected Control tileContainer;
 
-  protected LineEdit mapWidthLineEdit;
-  protected LineEdit mapHeightLineEdit;
+  private LineEdit mapWidthLineEdit;
+  private LineEdit mapHeightLineEdit;
 
-  protected Control optionMenu;
-  protected Control filterMenu;
-  protected LineEdit seedLineEdit;
-  protected OptionButton noiseTypeOptionButton;
-  protected OptionButton cellularDistanceFunctionOptionButton;
-  protected OptionButton cellularReturnTypeOptionButton;
-  protected OptionButton domainWarpTypeOptionButton;
-  protected OptionButton domainWarpFractalTypeOptionButton;
-  protected OptionButton fractalTypeOptionButton;
-  protected OptionButton filterTypeOptionButton;
+  private Control optionMenu;
+  private Control filterMenu;
+  private LineEdit seedLineEdit;
+  private OptionButton noiseTypeOptionButton;
+  private OptionButton cellularDistanceFunctionOptionButton;
+  private OptionButton cellularReturnTypeOptionButton;
+  private OptionButton domainWarpTypeOptionButton;
+  private OptionButton domainWarpFractalTypeOptionButton;
+  private OptionButton fractalTypeOptionButton;
+  private OptionButton filterTypeOptionButton;
 
-  protected LineEdit fractalGainLineEdit;
-  protected LineEdit fractalOctavesLineEdit;
-  protected LineEdit fractalLacunarityLineEdit;
-  protected LineEdit frequencyLineEdit;
-  protected LineEdit cellularJitterLineEdit;
-  protected LineEdit fractalWeightedStrengthLineEdit;
-  protected LineEdit fractalPingPongStrengthLineEdit;
-  protected LineEdit domainWarpAmplitudeLineEdit;
-  protected LineEdit domainWarpFractalGainLineEdit;
-  protected LineEdit domainWarpFractalLacunarityLineEdit;
-  protected LineEdit domainWarpFractalOctavesLineEdit;
-  protected LineEdit domainWarpFrequencyLineEdit;
-  protected LineEdit filterStrenghtLineEdit;
-  protected LineEdit filterBoostLineEdit;
+  private LineEdit fractalGainLineEdit;
+  private LineEdit fractalOctavesLineEdit;
+  private LineEdit fractalLacunarityLineEdit;
+  private LineEdit frequencyLineEdit;
+  private LineEdit cellularJitterLineEdit;
+  private LineEdit fractalWeightedStrengthLineEdit;
+  private LineEdit fractalPingPongStrengthLineEdit;
+  private LineEdit domainWarpAmplitudeLineEdit;
+  private LineEdit domainWarpFractalGainLineEdit;
+  private LineEdit domainWarpFractalLacunarityLineEdit;
+  private LineEdit domainWarpFractalOctavesLineEdit;
+  private LineEdit domainWarpFrequencyLineEdit;
+  private LineEdit filterStrenghtLineEdit;
+  private LineEdit filterBoostLineEdit;
 
   protected Button generateButton;
   protected Button saveImageButton;
   protected Button saveSettingsButton;
   protected Button loadSettingsButton;
+  protected Button addTileButton;
+  protected Button sortTilesButton;
 
   protected FileDialog saveImageDialog;
   protected FileDialog saveSettingsDialog;
@@ -85,6 +91,8 @@ public partial class MapRootUI : Node2D
     saveImageButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/SaveImage/Button");
     saveSettingsButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/SaveSettings/Button");
     loadSettingsButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/LoadSettings/Button");
+    addTileButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/AddTile");
+    sortTilesButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/SortTiles");
 
     saveImageDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/P/H/SaveImage/FileDialog");
     saveSettingsDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/P/H/SaveSettings/FileDialog");
@@ -174,20 +182,45 @@ public partial class MapRootUI : Node2D
     SetOptionButtonEnum(domainWarpFractalTypeOptionButton, generationSettings.domainWarpFractalType);
     SetOptionButtonEnum(fractalTypeOptionButton, generationSettings.fractalType);
     SetOptionButtonEnum(filterTypeOptionButton, generationSettings.filterType);
-  }
 
-
-  protected static void FillOptionWithEnum<T>(
-    OptionButton enumOptionButton, T defaultValue) where T : Enum
-  {
-    foreach (var noise in Enum.GetValues(typeof(T)))
-      enumOptionButton.AddItem(noise.ToString());
-    enumOptionButton.Select(Convert.ToInt32(defaultValue));
+    foreach (Node tile in tileContainer.GetChildren())
+      tileContainer.RemoveChild(tile);
+    foreach (TileNoise tileNoise in generationSettings.tileNoises)
+      AddTileInstance(tileNoise.noiseMarker, tileNoise.tile.color);
   }
 
   protected Vector3I GetMapSize()
     => new(SanitizeIntField(mapWidthLineEdit), SanitizeIntField(mapHeightLineEdit), 0);
 
+  private void AddTileInstance(float value, Color color)
+  {
+    var tileInstance = tileScene.Instantiate();
+    tileInstance.GetNode<LineEdit>("Value/LineEdit").Text = value.ToString();
+    tileInstance.GetNode<ColorPickerButton>("PickColor").Color = color;
+    tileContainer.AddChild(tileInstance);
+  }
+
+  public void SortTileContainer()
+  {
+    List<Node> tiles = new(tileContainer.GetChildren());
+    foreach (Node tile in tiles)
+      tileContainer.RemoveChild(tile);
+
+    tiles = tiles.OrderBy(
+      obj => InputSanitizer.SanitizeFloat(
+        obj.GetNode<LineEdit>("Value/LineEdit").Text)).ToList();
+
+    foreach (Node tile in tiles)
+      tileContainer.AddChild(tile);
+  }
+
+  private static void FillOptionWithEnum<T>(
+      OptionButton enumOptionButton, T defaultValue) where T : Enum
+  {
+    foreach (var noise in Enum.GetValues(typeof(T)))
+      enumOptionButton.AddItem(noise.ToString());
+    enumOptionButton.Select(Convert.ToInt32(defaultValue));
+  }
 
   private static T SanitizeEnum<T>(OptionButton enumOptionButton) where T : Enum
   {

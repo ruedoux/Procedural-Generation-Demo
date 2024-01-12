@@ -24,7 +24,10 @@ public partial class MapRoot : MapRootUI
       Button.SignalName.Pressed, new Callable(this, nameof(PressedSaveSettingsButton)));
     loadSettingsButton.Connect(
       Button.SignalName.Pressed, new Callable(this, nameof(PressedLoadSettingsButton)));
-
+    addTileButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(PressedAddTileButton)));
+    sortTilesButton.Connect(
+      Button.SignalName.Pressed, new Callable(this, nameof(SortTileContainer)));
     saveImageDialog.Connect(
       FileDialog.SignalName.FileSelected, new Callable(this, nameof(SelectedSaveImageFile)));
     saveSettingsDialog.Connect(
@@ -36,9 +39,9 @@ public partial class MapRoot : MapRootUI
     AddChild(mapCamera);
   }
 
-
   public void PressedGenerateButton()
   {
+    SortTileContainer();
     ReplaceTileMap();
     GenerationSettings generationSettings = GetGenerationSettings();
     GetMapGenerator().FillTileMapWithNoise(
@@ -51,7 +54,6 @@ public partial class MapRoot : MapRootUI
     Logger.Log("Generation finished");
   }
 
-
   public void PressedSaveImageButton()
     => saveImageDialog.Show();
 
@@ -61,6 +63,8 @@ public partial class MapRoot : MapRootUI
   public void PressedLoadSettingsButton()
     => loadSettingsDialog.Show();
 
+  public void PressedAddTileButton()
+    => tileContainer.AddChild(tileScene.Instantiate());
 
   public void SelectedSaveImageFile(string filePath)
   {
@@ -94,7 +98,6 @@ public partial class MapRoot : MapRootUI
     }
   }
 
-
   private void ReplaceTileMap()
   {
     List<Color> colors = new();
@@ -106,7 +109,6 @@ public partial class MapRoot : MapRootUI
     AddChild(tileMap);
   }
 
-
   private MapGenerator GetMapGenerator()
   {
     GenerationSettings generationSettings = GetGenerationSettings();
@@ -116,7 +118,6 @@ public partial class MapRoot : MapRootUI
        new(-1, Colors.Red)),
        GetMapFilter());
   }
-
 
   private MapFilter GetMapFilter()
   {

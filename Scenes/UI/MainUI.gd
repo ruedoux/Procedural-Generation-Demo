@@ -15,18 +15,13 @@ func _ready() -> void:
 	add_tile_instance(0, Color.SKY_BLUE)
 	add_tile_instance(0.1, Color.YELLOW)
 	add_tile_instance(0.6, Color.LIME_GREEN)
-	add_tile_instance(0.9, Color.FOREST_GREEN)
-	add_tile_instance(0.95, Color.LIGHT_GRAY)
+	add_tile_instance(0.8, Color.FOREST_GREEN)
+	add_tile_instance(0.9, Color.LIGHT_GRAY)
 	add_tile_instance(1, Color.WHITE)
 
 
 func _random_seed_button_pressed() -> void:
 	noiseSeed.text = str(randi() % 2147483647)
-
-
-func _on_add_tile_pressed() -> void:
-	var tileInstance := TileScene.instantiate()
-	TileContainer.add_child(tileInstance)
 
 
 func add_tile_instance(value: float, color: Color) -> void:

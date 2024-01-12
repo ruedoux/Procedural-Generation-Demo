@@ -237,6 +237,10 @@ layout_mode = 2
 layout_mode = 2
 text = "Add Tile"
 
+[node name="SortTiles" type="Button" parent="C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V"]
+layout_mode = 2
+text = "Sort Tiles"
+
 [node name="FilterContainer" parent="C/H/OptionPanel/B/P/S/V" instance=ExtResource("2_5xejd")]
 layout_mode = 2
 
@@ -658,7 +662,6 @@ focus_mode = 1
 theme_override_fonts/font = ExtResource("2_6l5sf")
 text = "0.45"
 
-[connection signal="pressed" from="C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/AddTile" to="." method="_on_add_tile_pressed"]
 [connection signal="pressed" from="C/H/OptionPanel/B/P/S/V/NoiseContainer/Container/Noise/V/Seed/Button" to="." method="_random_seed_button_pressed"]
 
 [editable path="C/H/OptionPanel/B/P/S/V/SizeContainer"]
