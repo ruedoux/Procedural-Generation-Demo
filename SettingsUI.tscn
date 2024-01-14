@@ -40,39 +40,39 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/SizeContainer/Container/Size/V/Width"]
-layout_mode = 2
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Width  "
-
 [node name="LineEdit" type="LineEdit" parent="V/SizeContainer/Container/Size/V/Width"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "100"
+
+[node name="Label" type="Label" parent="V/SizeContainer/Container/Size/V/Width"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Width"
 
 [node name="Height" type="HBoxContainer" parent="V/SizeContainer/Container/Size/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/SizeContainer/Container/Size/V/Height"]
-layout_mode = 2
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Height "
-
 [node name="LineEdit" type="LineEdit" parent="V/SizeContainer/Container/Size/V/Height"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "100"
+
+[node name="Label" type="Label" parent="V/SizeContainer/Container/Size/V/Height"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Height "
 
 [node name="TilesContainer" parent="V" instance=ExtResource("1_l8vlo")]
 layout_mode = 2
@@ -127,57 +127,64 @@ theme_override_font_sizes/font_size = 20
 text = "Filter"
 horizontal_alignment = 1
 
-[node name="Type" type="VBoxContainer" parent="V/FilterContainer/Container/Filter/V"]
+[node name="Type" type="HBoxContainer" parent="V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Type"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Type"
 
 [node name="OptionButton" type="OptionButton" parent="V/FilterContainer/Container/Filter/V/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Type"
 
 [node name="Strenght" type="HBoxContainer" parent="V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Strenght"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Filter Strenght    "
-
 [node name="LineEdit" type="LineEdit" parent="V/FilterContainer/Container/Filter/V/Strenght"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.0"
+
+[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Strenght"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Filter Strenght"
 
 [node name="Boost" type="HBoxContainer" parent="V/FilterContainer/Container/Filter/V"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Boost"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Filter Boost       "
-
 [node name="LineEdit" type="LineEdit" parent="V/FilterContainer/Container/Filter/V/Boost"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.0"
+
+[node name="Label" type="Label" parent="V/FilterContainer/Container/Filter/V/Boost"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Filter Boost"
 
 [node name="NoiseContainer" parent="V" instance=ExtResource("1_l8vlo")]
 layout_mode = 2
@@ -209,65 +216,65 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "General"
 
-[node name="Seed" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/General"]
+[node name="NoiseType" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/General"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/Seed"]
-layout_mode = 2
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Seed    "
-
-[node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/General/Seed"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
-focus_mode = 1
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "123"
-
-[node name="Button" type="Button" parent="V/NoiseContainer/Container/Noise/V/General/Seed"]
-layout_mode = 2
-focus_mode = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Random"
-
-[node name="NoiseType" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/General"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/NoiseType"]
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Noise Type       "
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/General/NoiseType"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/NoiseType"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Algorithm"
+
+[node name="Seed" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/General"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/General/Seed"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "123"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/Seed"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Seed"
 
 [node name="Frequency" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/General"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/Frequency"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Freqency           "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/General/Frequency"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.01"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/General/Frequency"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Freqency"
 
 [node name="Fractal" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
@@ -275,111 +282,127 @@ layout_mode = 2
 [node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "General"
+text = "Fractal"
 
-[node name="Type" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
+[node name="Type" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Type"]
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Type"
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/Fractal/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Type"
 
 [node name="Octaves" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Octaves"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Octaves    "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Fractal/Octaves"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "1"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Octaves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Octaves"
 
 [node name="Lacunarity" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Lacunarity"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Lacunarity "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Fractal/Lacunarity"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "1"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Lacunarity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Lacunarity"
 
 [node name="Gain" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Gain"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Gain       "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Fractal/Gain"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.5"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Gain"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Gain"
 
 [node name="Strenght" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Strenght"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Strenght   "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Fractal/Strenght"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/Strenght"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Strenght"
 
 [node name="PingPong" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Fractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/PingPong"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Fractal Ping Pong  "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Fractal/PingPong"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0"
 
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Fractal/PingPong"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Ping Pong Strength"
+
 [node name="Cellular" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
 layout_mode = 2
@@ -387,53 +410,68 @@ theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "Cellular
 "
 
-[node name="DistanceFunction" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
+[node name="DistanceFunction" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/DistanceFunction"]
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Cellular Distance"
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/Cellular/DistanceFunction"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
 
-[node name="ReturnType" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/DistanceFunction"]
 layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/ReturnType"]
-layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_constants/line_spacing = 0
 theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Cellular Return  "
+text = "Function"
+
+[node name="ReturnType" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
+layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/Cellular/ReturnType"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/ReturnType"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Return"
 
 [node name="Jitter" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/Cellular"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/Jitter"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Cellular Jitter    "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/Cellular/Jitter"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.45"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/Cellular/Jitter"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Jitter    "
 
 [node name="DomainWarp" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
@@ -443,55 +481,64 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "Domain Warp"
 
-[node name="Type" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarp"]
+[node name="Type" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarp"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Type"]
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Warp"
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Type"
 
 [node name="Amplitude" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarp"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Amplitude"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Amplitude   "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Amplitude"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "30"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Amplitude"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Amplitude"
 
 [node name="Frequency" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarp"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Frequency"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Frequency   "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Frequency"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.05"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarp/Frequency"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Frequency"
 
 [node name="DomainWarpFractal" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V"]
 layout_mode = 2
@@ -501,72 +548,82 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "Domain Warp"
 
-[node name="Type" type="VBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal"]
+[node name="Type" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
-
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Type"]
-layout_mode = 2
-theme_override_constants/line_spacing = 0
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Fractal"
 
 [node name="OptionButton" type="OptionButton" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Type"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
+text_overrun_behavior = 1
+clip_text = true
+fit_to_longest_item = false
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Type"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Type"
 
 [node name="Octaves" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Octaves"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Octaves     "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Octaves"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "5"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Octaves"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Octaves"
 
 [node name="Lacunarity" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Lacunarity"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Lacunarity  "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Lacunarity"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "6"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Lacunarity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Lacunarity"
 
 [node name="Gain" type="HBoxContainer" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Gain"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_oc8wn")
-text = "Domain Gain        "
-
 [node name="LineEdit" type="LineEdit" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Gain"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.6
 focus_mode = 1
 theme_override_fonts/font = ExtResource("2_oc8wn")
 text = "0.5"
+
+[node name="Label" type="Label" parent="V/NoiseContainer/Container/Noise/V/DomainWarpFractal/Gain"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_fonts/font = ExtResource("2_oc8wn")
+text = "Gain"
 
 [editable path="V/SizeContainer"]
 [editable path="V/TilesContainer"]

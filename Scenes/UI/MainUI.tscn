@@ -27,7 +27,7 @@ grow_vertical = 2
 [node name="ButtonPanel" type="VBoxContainer" parent="C/H"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 3.0
+size_flags_stretch_ratio = 2.9
 
 [node name="Null" type="Control" parent="C/H/ButtonPanel"]
 layout_mode = 2

@@ -9,7 +9,7 @@ var TileContainer: VBoxContainer = $C/H/OptionPanel/B/P/SettingsUI/V/TilesContai
 
 
 func _ready() -> void:
-	_random_seed_button_pressed()
+	noiseSeed.text = str(randi() % 2147483647)
 
 	add_tile_instance(0, Color.SKY_BLUE)
 	add_tile_instance(0.1, Color.YELLOW)
@@ -17,10 +17,6 @@ func _ready() -> void:
 	add_tile_instance(0.8, Color.FOREST_GREEN)
 	add_tile_instance(0.9, Color.LIGHT_GRAY)
 	add_tile_instance(1, Color.WHITE)
-
-
-func _random_seed_button_pressed() -> void:
-	noiseSeed.text = str(randi() % 2147483647)
 
 
 func add_tile_instance(value: float, color: Color) -> void:
