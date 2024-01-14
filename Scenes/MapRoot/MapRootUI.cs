@@ -17,8 +17,7 @@ public partial class MapRootUI : Node2D
   private LineEdit mapWidthLineEdit;
   private LineEdit mapHeightLineEdit;
 
-  private Control optionMenu;
-  private Control filterMenu;
+
   private LineEdit seedLineEdit;
   private OptionButton noiseTypeOptionButton;
   private OptionButton cellularDistanceFunctionOptionButton;
@@ -56,43 +55,52 @@ public partial class MapRootUI : Node2D
 
   protected void InitializeUI()
   {
-    tileContainer = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/TileContainer");
+    tileContainer = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/TilesContainer/Container/Tiles/V/TileContainer");
+    mapWidthLineEdit = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/SizeContainer/Container/Size/V/Width/LineEdit");
+    mapHeightLineEdit = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/SizeContainer/Container/Size/V/Height/LineEdit");
 
-    mapWidthLineEdit = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/S/V/SizeContainer/Container/Size/V/Width/LineEdit");
-    mapHeightLineEdit = GetNode<LineEdit>("MainUI/C/H/OptionPanel/B/P/S/V/SizeContainer/Container/Size/V/Height/LineEdit");
+    Control optionMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/NoiseContainer/Container/Noise/V");
 
-    optionMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/S/V/NoiseContainer/Container/Noise/V");
-    filterMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/S/V/FilterContainer/Container/Filter/V");
-    seedLineEdit = optionMenu.GetNode<LineEdit>("Seed/LineEdit");
-    noiseTypeOptionButton = optionMenu.GetNode<OptionButton>("NoiseType/OptionButton");
-    cellularDistanceFunctionOptionButton = optionMenu.GetNode<OptionButton>("CellularDistance/OptionButton");
-    cellularReturnTypeOptionButton = optionMenu.GetNode<OptionButton>("CellularReturn/OptionButton");
-    domainWarpTypeOptionButton = optionMenu.GetNode<OptionButton>("DomainWarp/OptionButton");
-    domainWarpFractalTypeOptionButton = optionMenu.GetNode<OptionButton>("DomainFractal/OptionButton");
-    fractalTypeOptionButton = optionMenu.GetNode<OptionButton>("Fractal/OptionButton");
+    Control filterMenu = GetNode<Control>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/FilterContainer/Container/Filter/V");
     filterTypeOptionButton = filterMenu.GetNode<OptionButton>("Type/OptionButton");
-
-    fractalGainLineEdit = optionMenu.GetNode<LineEdit>("FractalGain/LineEdit");
-    fractalOctavesLineEdit = optionMenu.GetNode<LineEdit>("FractalOctaves/LineEdit");
-    fractalLacunarityLineEdit = optionMenu.GetNode<LineEdit>("FractalLacunarity/LineEdit");
-    fractalWeightedStrengthLineEdit = optionMenu.GetNode<LineEdit>("FractalStrenght/LineEdit");
-    fractalPingPongStrengthLineEdit = optionMenu.GetNode<LineEdit>("FractalPingPong/LineEdit"); ;
-    frequencyLineEdit = optionMenu.GetNode<LineEdit>("Frequency/LineEdit");
-    cellularJitterLineEdit = optionMenu.GetNode<LineEdit>("CellularJitter/LineEdit");
-    domainWarpAmplitudeLineEdit = optionMenu.GetNode<LineEdit>("DomainAmplitude/LineEdit");
-    domainWarpFractalGainLineEdit = optionMenu.GetNode<LineEdit>("DomainGain/LineEdit");
-    domainWarpFractalLacunarityLineEdit = optionMenu.GetNode<LineEdit>("DomainLacunarity/LineEdit");
-    domainWarpFractalOctavesLineEdit = optionMenu.GetNode<LineEdit>("DomainOctaves/LineEdit");
-    domainWarpFrequencyLineEdit = optionMenu.GetNode<LineEdit>("DomainFrequency/LineEdit");
     filterStrenghtLineEdit = filterMenu.GetNode<LineEdit>("Strenght/LineEdit");
     filterBoostLineEdit = filterMenu.GetNode<LineEdit>("Boost/LineEdit");
+
+    Control optionGeneral = optionMenu.GetNode<Control>("General");
+    seedLineEdit = optionGeneral.GetNode<LineEdit>("Seed/LineEdit");
+    noiseTypeOptionButton = optionGeneral.GetNode<OptionButton>("NoiseType/OptionButton");
+    frequencyLineEdit = optionGeneral.GetNode<LineEdit>("Frequency/LineEdit");
+
+    Control optionFractal = optionMenu.GetNode<Control>("Fractal");
+    fractalGainLineEdit = optionFractal.GetNode<LineEdit>("Gain/LineEdit");
+    fractalOctavesLineEdit = optionFractal.GetNode<LineEdit>("Octaves/LineEdit");
+    fractalLacunarityLineEdit = optionFractal.GetNode<LineEdit>("Lacunarity/LineEdit");
+    fractalWeightedStrengthLineEdit = optionFractal.GetNode<LineEdit>("Strenght/LineEdit");
+    fractalPingPongStrengthLineEdit = optionFractal.GetNode<LineEdit>("PingPong/LineEdit"); ;
+    fractalTypeOptionButton = optionFractal.GetNode<OptionButton>("Type/OptionButton");
+
+    Control optionCellular = optionMenu.GetNode<Control>("Cellular");
+    cellularDistanceFunctionOptionButton = optionCellular.GetNode<OptionButton>("DistanceFunction/OptionButton");
+    cellularReturnTypeOptionButton = optionCellular.GetNode<OptionButton>("ReturnType/OptionButton");
+    cellularJitterLineEdit = optionCellular.GetNode<LineEdit>("Jitter/LineEdit");
+
+    Control optionDomainWarp = optionMenu.GetNode<Control>("DomainWarp");
+    domainWarpTypeOptionButton = optionDomainWarp.GetNode<OptionButton>("Type/OptionButton");
+    domainWarpFrequencyLineEdit = optionDomainWarp.GetNode<LineEdit>("Frequency/LineEdit");
+    domainWarpAmplitudeLineEdit = optionDomainWarp.GetNode<LineEdit>("Amplitude/LineEdit");
+
+    Control optionDomainWarpFractal = optionMenu.GetNode<Control>("DomainWarpFractal");
+    domainWarpFractalGainLineEdit = optionDomainWarpFractal.GetNode<LineEdit>("Gain/LineEdit");
+    domainWarpFractalLacunarityLineEdit = optionDomainWarpFractal.GetNode<LineEdit>("Lacunarity/LineEdit");
+    domainWarpFractalOctavesLineEdit = optionDomainWarpFractal.GetNode<LineEdit>("Octaves/LineEdit");
+    domainWarpFractalTypeOptionButton = optionDomainWarpFractal.GetNode<OptionButton>("Type/OptionButton");
 
     generateButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/Generate/Button");
     saveImageButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/SaveImage/Button");
     saveSettingsButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/SaveSettings/Button");
     loadSettingsButton = GetNode<Button>("MainUI/C/H/ButtonPanel/P/H/LoadSettings/Button");
-    addTileButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/AddTile");
-    sortTilesButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/S/V/TilesContainer/Container/Tiles/V/SortTiles");
+    addTileButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/TilesContainer/Container/Tiles/V/AddTile");
+    sortTilesButton = GetNode<Button>("MainUI/C/H/OptionPanel/B/P/SettingsUI/V/TilesContainer/Container/Tiles/V/SortTiles");
 
     saveImageDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/P/H/SaveImage/FileDialog");
     saveSettingsDialog = GetNode<FileDialog>("MainUI/C/H/ButtonPanel/P/H/SaveSettings/FileDialog");

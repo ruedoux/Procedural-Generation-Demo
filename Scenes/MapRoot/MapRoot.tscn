@@ -7,3 +7,10 @@
 script = ExtResource("1_762sv")
 
 [node name="MainUI" parent="." instance=ExtResource("2_1qw8d")]
+
+[editable path="MainUI"]
+[editable path="MainUI/C/H/OptionPanel/B/P/SettingsUI"]
+[editable path="MainUI/C/H/OptionPanel/B/P/SettingsUI/V/SizeContainer"]
+[editable path="MainUI/C/H/OptionPanel/B/P/SettingsUI/V/TilesContainer"]
+[editable path="MainUI/C/H/OptionPanel/B/P/SettingsUI/V/FilterContainer"]
+[editable path="MainUI/C/H/OptionPanel/B/P/SettingsUI/V/NoiseContainer"]
